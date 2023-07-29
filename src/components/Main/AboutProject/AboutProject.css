@@ -1,0 +1,110 @@
+.aboutProject {
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutProject__title {
+    margin: 0;
+    padding: 0;
+    margin-top: 110px;
+    margin-left: 70px;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+}
+
+.aboutProject__info {
+    margin-left: 70px;
+    margin-right: 70px;
+    margin-top: 23px;
+    max-width: 1140px;
+    border-top: 1px solid #000;
+    display: flex;
+    gap: 40px;
+}
+
+.aboutProject__info-column {}
+
+.aboutProject__info-column-title {
+    margin: 0;
+    padding: 0;
+    margin-top: 70px;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.8px;
+}
+
+.aboutProject__info-column-subtitle {
+    margin: 0;
+    padding: 0;
+    margin-top: 26px;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.aboutProject__scale {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 110px;
+}
+
+.aboutProject__back {}
+
+.aboutProject__scale-back {
+    background-color: #2BE080;
+    width: 228px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.aboutProject__scale-front {
+    background-color: #F2F2F2;
+    width: 912px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.aboutProject__scale-lable {
+    margin: 0;
+    padding: 0;
+    margin-top: 14px;
+    margin-bottom: 110px;
+    color: #A0A0A0;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+}

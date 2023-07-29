@@ -1,0 +1,65 @@
+.promo {
+    background-color: #073042;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.promo__info {
+    margin-left: 70px;
+    margin-top: 75px;
+    margin-right: 190px;
+    margin-bottom: 75px;
+}
+
+.promo__title {
+    padding: 0;
+    margin: 0;
+    color: #ffffff;
+    font-family: Inter, sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 58px;
+    max-width: 640px;
+}
+
+.promo__subtitle {
+    margin: 0;
+    padding: 0;
+    margin-top: 36px;
+    min-width: 310px;
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+}
+
+.promo__button {
+    all: unset;
+    margin-top: 146px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, .6);
+    padding: 10px 20px;
+    color: #FFF;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.promo__image {
+    background-image: url('../../../images/light1-promo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 310px;
+    height: 304px;
+    margin-right: 70px;
+    margin-top: 75px;
+}
