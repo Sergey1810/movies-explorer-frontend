@@ -19,8 +19,7 @@
 }
 
 .aboutProject__info {
-    margin-left: 70px;
-    margin-right: 70px;
+    margin: 0 70px;
     margin-top: 23px;
     max-width: 1140px;
     border-top: 1px solid #000;
@@ -56,23 +55,29 @@
 }
 
 .aboutProject__scale {
+    max-width: 1140px;
     display: flex;
-    margin: 0 auto;
+    margin: 0 70px;
     margin-top: 110px;
 }
 
-.aboutProject__back {}
+.aboutProject__back {
+    min-width: 20%;
+}
+
+.aboutProject__front {
+    min-width: 80%;
+}
 
 .aboutProject__scale-back {
     background-color: #2BE080;
-    width: 228px;
     height: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #000;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -81,14 +86,13 @@
 
 .aboutProject__scale-front {
     background-color: #F2F2F2;
-    width: 912px;
     height: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #000;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -102,9 +106,90 @@
     margin-bottom: 110px;
     color: #A0A0A0;
     text-align: center;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 17px;
+}
+
+
+@media screen and (max-width:768px) {
+    .aboutProject__title {
+        margin-top: 90px;
+        margin-left: 50px;
+    }
+
+    .aboutProject__info-column-subtitle {
+        font-size: 12px;
+        margin-top: 22px;
+    }
+
+    .aboutProject__info{
+        margin: 0 50px;
+        margin-top: 23px;
+    }
+
+    .aboutProject__scale {
+        margin: 0 50px;
+        margin-top: 93px;
+    }
+
+    .aboutProject__scale-lable {
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .aboutProject {
+        max-width: 320px;
+    }
+    .aboutProject__title {
+        margin-top: 70px;
+        margin-left: 18px;
+        font-size: 18px;
+    }
+    .aboutProject__info-column-title {
+        margin-top: 0px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .aboutProject__info-column-subtitle {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 16px;
+    }
+
+    .aboutProject__info{
+        flex-direction: column;
+        margin: 0 18px;
+        margin-top: 28px;
+        padding-top: 60px;
+        gap: 56px;
+    }
+
+    .aboutProject__scale {
+        margin: 0 18px;
+        margin-top: 60px;
+    }
+
+    .aboutProject__scale-lable {
+        margin-bottom: 70px;
+        margin-top: 10px;
+        font-size: 11px;
+    }
+    .aboutProject__scale-back{
+        font-size: 11px;
+    }
+    .aboutProject__scale-front{
+        font-size: 11px;
+    }
+    .aboutProject__back {
+        min-width: 100px;
+    }
+    
+    .aboutProject__front {
+        min-width: 184px;
+    }
 }
