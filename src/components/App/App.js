@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Main from './components/Main/Main';
-import Movies from './components/Movies/Movies';
-import SavedMovies from './components/SavedMovies/SavedMovies';
-import Register from './components/Register/Register';
-import Login from './components/Login/Login';
-import Errors from './components/Errors/Errors';
-import Profile from './components/Profile/Profile';
+import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import Errors from '../Errors/Errors';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (

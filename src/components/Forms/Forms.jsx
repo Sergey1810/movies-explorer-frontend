@@ -2,84 +2,114 @@ import React, { useState, useEffect } from 'react'
 import './Forms.css'
 
 export default function Forms() {
-    const [inputFields, setInputFields] = useState({
-        name: "",
-        email: "",
-        password: ""
-    });
-    const [errors, setErrors] = useState({});
-    const [submitting, setSubmitting] = useState(false);
-
-    const validateValues = (inputValues) => {
-        const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-        let errors = {};
-        if (inputValues.name.length < 15) {
-            errors.name = "Что-то пошло не так...";
-        }
-        if (!inputValues.email || regex.test(inputValues.email)) {
-            errors.email = "Что-то пошло не так...";
-        }
-        if (inputValues.password.length < 8) {
-            errors.password = "Что-то пошло не так...";
-        }
-        return errors;
-    };
-    const handleChange = (e) => {
-        setInputFields({ ...inputFields, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setErrors(validateValues(inputFields));
-        setSubmitting(true);
-    };
+    const [name, setName] = useState('')
+    const [nameDirty, setNameDirty] = useState('false')
+    const [nameError, setNameError] = useState('')
+    const [email, setEmail] = useState('')
+    const [emailDirty, setEmailDirty] = useState('false')
+    const [emailError, setEmailError] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordDirty, setPasswordDirty] = useState('false')
+    const [passwordError, setPasswordError] = useState('')
+    const [formValid, setFormValid] = useState(true)
 
     useEffect(() => {
-        if (Object.keys(errors).length === 0 && submitting) {
+        if (nameError || emailError || passwordError) {
+            setFormValid(false)
+        } else {
+            setFormValid(true)
         }
-    }, [errors]);
+    }, [nameError, emailError, passwordError])
+
+    const blurHandler = (e) => {
+        // eslint-disable-next-line default-case
+        switch (e.target.name) {
+            case 'name':
+                setNameDirty(true)
+                break
+            case 'email':
+                setEmailDirty(true)
+                break
+            case 'password':
+                setPasswordDirty(true)
+                break
+        }
+    }
+
+    const nameHandler = (e) => {
+        setName(e.target.value)
+        if (e.target.value.length < 4) {
+            setNameError('Что-то пошло не так...')
+        } else {
+            setNameError("")
+        }
+    }
+
+    const emailHandler = (e) => {
+        setEmail(e.target.value)
+        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (!regex.test(String(e.target.value).toLowerCase())) {
+            setEmailError('Что-то пошло не так...')
+        } else {
+            setEmailError("")
+        }
+    }
+    const passwordHandler = (e) => {
+        setPassword(e.target.value)
+        if (e.target.value.length < 8) {
+            setPasswordError('Что-то пошло не так...')
+        } else {
+            setPasswordError("")
+        }
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form >
             <div className='forms__container'>
                 <label for="Name" className='forms__label'>Имя</label>
                 <input
+                    onBlur={e => blurHandler(e)}
                     className='forms__input'
                     type="text"
                     name="name"
-                    value={inputFields.name}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={e => nameHandler(e)}
                     placeholder='Имя'
+                    required
                 ></input>
-                {errors.name ? <p className="forms__error">Что-то пошло не так...</p> : null}
+                {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
                 <label for="email" className='forms__label'>Email</label>
                 <input
+                    onBlur={e => blurHandler(e)}
                     className='forms__input'
                     type="email"
                     name="email"
-                    value={inputFields.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={e => emailHandler(e)}
                     placeholder='Email'
+                    required
                 ></input>
-                {errors.email ? (
-                    <p className="forms__error">Что-то пошло не так...</p>
-                ) : null}
+                {(emailDirty && emailError) && (
+                    <p className="forms__error">{emailError}</p>
+                )}
                 <label for="password" className='forms__label'>Пароль</label>
                 <input
+                    onBlur={e => blurHandler(e)}
                     className='forms__input'
                     type="password"
                     name="password"
-                    value={inputFields.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={e => passwordHandler(e)}
                     placeholder='Пароль'
+                    required
                 ></input>
-                {errors.password ? (
+                {(passwordDirty && passwordError) && (
                     <p className="forms__error">
-                        Что-то пошло не так...
+                        {passwordError}
                     </p>
-                ) : null}
+                )}
             </div>
-            <button type="submit" className='forms__button'>Зарегистрироваться</button>
+            <button disabled={!formValid} type="submit" className='forms__button'>Зарегистрироваться</button>
         </form>
     )
 }
