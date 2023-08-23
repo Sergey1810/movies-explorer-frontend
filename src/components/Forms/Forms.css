@@ -1,9 +1,15 @@
-.forms {}
-
-.forms__container {
+.forms {
     display: flex;
     flex-direction: column;
+    align-items: center;
     max-width: 396px;
+    width: 100%;
+}
+
+.forms__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .forms__input {
@@ -56,4 +62,20 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+@media screen and (max-width:430px) {
+    .forms__container {
+        width: calc(100% - 60px);
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .forms__button {
+        width: 260px;
+        font-size: 12px;
+        margin: 0 auto;
+        margin-top: 222px;
+    }
 }

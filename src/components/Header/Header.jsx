@@ -13,7 +13,7 @@ export default function Header() {
             :
                 <div className="header__auth">
                     <Link to='/signup' className='header__auth-link'>Регистрация</Link>
-                    <Link to='/profile' className='header__auth-button-link'><button className='header__auth-button'>Войти</button></Link>
+                    <Link to='/signin' className='header__auth-button-link'><button className='header__auth-button'>Войти</button></Link>
                 </div>}
         </header>
     )

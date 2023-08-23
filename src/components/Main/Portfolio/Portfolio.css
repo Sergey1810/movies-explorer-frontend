@@ -21,10 +21,19 @@
 .portfolio__items {
     border-bottom: 1px solid #E8E8E8;
     max-width: 1140px;
+    padding-bottom: 19px;
+}
+
+.portfolio__items-link{
+    text-decoration: none;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding-bottom: 19px;
+    transition: opacity 0.3s linear;
+}
+
+.portfolio__items-link:hover{
+    opacity: 0.6;
 }
 
 .portfolio__items:last-child {
@@ -49,11 +58,6 @@
 .portfolio__items-icon {
     width: 29px;
     height: 60px;
-    transition: opacity 0.3s linear;
-}
-
-.portfolio__items-icon:hover{
-    opacity: 0.6;
 }
 
 @media screen and (max-width:768px) {
@@ -72,7 +76,7 @@
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:420px) {
     .portfolio {
         width: calc(100% - 28px);
         margin: 0 14px;

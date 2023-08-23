@@ -149,7 +149,7 @@
     .about-me__info {
         flex-direction: column-reverse;
         align-items: center;
-        margin: 0 50px;
+        margin: 0 auto;
         margin-top: 28px;
     }
 

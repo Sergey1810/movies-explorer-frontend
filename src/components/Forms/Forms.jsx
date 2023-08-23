@@ -64,7 +64,7 @@ export default function Forms() {
     }
 
     return (
-        <form >
+        <form className='forms'>
             <div className='forms__container'>
                 <label for="Name" className='forms__label'>Имя</label>
                 <input

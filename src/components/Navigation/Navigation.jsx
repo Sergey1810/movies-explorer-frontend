@@ -13,8 +13,9 @@ export default function Navigation() {
                         <li className='navigation__item'><Link to='/saved-movies' className='navigation__item-link'>Сохраненные фильмы</Link></li>
                     </ul>
                     <div className='navigation__button'>
-                        <Link to='/profile' className='navigation__button-link'>Аккаунт</Link>
-                        <img src={buttonIcon} alt="" className='navigation__button-icon' />
+                        <Link to='/profile' className='navigation__button-link'>Аккаунт
+                            <img src={buttonIcon} alt="кнопка войти" className='navigation__button-icon' />
+                        </Link>
                     </div>
                 </div>
             </div>
