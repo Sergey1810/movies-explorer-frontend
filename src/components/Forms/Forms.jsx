@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Forms.css'
+import { useLocation } from 'react-router-dom'
 
 export default function Forms() {
     const [name, setName] = useState('')
@@ -12,6 +13,8 @@ export default function Forms() {
     const [passwordDirty, setPasswordDirty] = useState('false')
     const [passwordError, setPasswordError] = useState('')
     const [formValid, setFormValid] = useState(true)
+
+    const location = useLocation()
 
     useEffect(() => {
         if (nameError || emailError || passwordError) {
@@ -38,7 +41,7 @@ export default function Forms() {
 
     const nameHandler = (e) => {
         setName(e.target.value)
-        if (e.target.value.length < 4) {
+        if (e.target.value.length < 4 || e.target.value.length > 25) {
             setNameError('Что-то пошло не так...')
         } else {
             setNameError("")
@@ -66,19 +69,24 @@ export default function Forms() {
     return (
         <form className='forms'>
             <div className='forms__container'>
-                <label for="Name" className='forms__label'>Имя</label>
-                <input
-                    onBlur={e => blurHandler(e)}
-                    className='forms__input'
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={e => nameHandler(e)}
-                    placeholder='Имя'
-                    required
-                ></input>
-                {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
-                <label for="email" className='forms__label'>Email</label>
+                {location.pathname === '/signup' ? <>
+                    <label  className='forms__label'>Имя</label>
+                    <input
+                        onBlur={e => blurHandler(e)}
+                        className='forms__input'
+                        type="text"
+                        name="name"
+                        value={name}
+                        onChange={e => nameHandler(e)}
+                        placeholder='Имя'
+                        min={2}
+                        max={30}
+                        required
+                    ></input>
+                    {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
+                </> : null}
+
+                <label  className='forms__label'>Email</label>
                 <input
                     onBlur={e => blurHandler(e)}
                     className='forms__input'
@@ -92,7 +100,7 @@ export default function Forms() {
                 {(emailDirty && emailError) && (
                     <p className="forms__error">{emailError}</p>
                 )}
-                <label for="password" className='forms__label'>Пароль</label>
+                <label className='forms__label'>Пароль</label>
                 <input
                     onBlur={e => blurHandler(e)}
                     className='forms__input'
@@ -101,6 +109,8 @@ export default function Forms() {
                     value={password}
                     onChange={e => passwordHandler(e)}
                     placeholder='Пароль'
+                    min={4}
+                    max={30}
                     required
                 ></input>
                 {(passwordDirty && passwordError) && (
@@ -109,7 +119,7 @@ export default function Forms() {
                     </p>
                 )}
             </div>
-            <button disabled={!formValid} type="submit" className='forms__button'>Зарегистрироваться</button>
+            <button disabled={!formValid} type="submit" className='forms__button'>{location.pathname === '/signup' ? 'Зарегистрироваться':'Войти'}</button>
         </form>
     )
 }

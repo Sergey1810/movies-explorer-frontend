@@ -70,6 +70,8 @@
 }
 
 .aboutProject__scale-back {
+    margin: 0;
+    padding: 0;
     background-color: #2BE080;
     height: 36px;
     display: flex;
@@ -85,6 +87,8 @@
 }
 
 .aboutProject__scale-front {
+    margin: 0;
+    padding: 0;
     background-color: #F2F2F2;
     height: 36px;
     display: flex;
@@ -122,6 +126,7 @@
 
     .aboutProject__info-column-subtitle {
         font-size: 12px;
+        line-height: 18px;
         margin-top: 22px;
     }
 
@@ -140,7 +145,7 @@
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:400px) {
     .aboutProject {
         max-width: 320px;
     }

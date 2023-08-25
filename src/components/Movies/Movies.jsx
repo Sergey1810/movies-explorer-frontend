@@ -7,11 +7,13 @@ import './Movies.css'
 
 export default function Movies() {
     return (
-        <div className='movies'>
+        <>
             <Header />
-            <SearchForm />
-            <MoviesCardList />
+            <main className='movies'>
+                <SearchForm />
+                <MoviesCardList />
+            </main>
             <Footer />
-        </div>
+        </>
     )
 }

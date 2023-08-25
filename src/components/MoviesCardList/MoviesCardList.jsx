@@ -47,9 +47,9 @@ export default function MoviesCardList() {
     ])
     return (
         <section className='moviesCardList'>
-            <div className='moviesCardList__list'>
+            <ul className='moviesCardList__list'>
                 {massive.map((card, index) => <MoviesCard key={index} card={card} />)}
-            </div>
+            </ul>
             <div className='moviesCardList__add'>
                 <button className='moviesCardList__button'>Ещё</button>
             </div>

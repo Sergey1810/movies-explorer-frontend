@@ -7,11 +7,13 @@ import './SavedMovies.css'
 
 export default function SavedMovies() {
     return (
-        <div className='savedMovies'>
+        <>
             <Header />
-            <SearchForm />
-            <MoviesCardList />
+            <main className='savedMovies'>
+                <SearchForm />
+                <MoviesCardList />
+            </main>
             <Footer />
-        </div>
+        </>
     )
 }

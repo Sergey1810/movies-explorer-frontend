@@ -18,7 +18,7 @@
 }
 
 .techs__contents {
-    margin-top: 23px;
+    margin-top: 20px;
     margin-left: 70px;
     margin-right: 70px;
     border-top: 1px solid #000;
@@ -86,13 +86,25 @@
     letter-spacing: -0.56px;
 
 }
-
-@media screen and (max-width:930px) {
-
+@media screen and (max-width:1100px) {
     .techs__flex {
+        max-width: 870px;
         margin: 0 90px;
         margin-top: 83px;
         margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width:930px) {
+    .techs__flex {
+        margin: 0 90px;
+        margin-top: 80px;
+        margin-bottom: 90px;
+    }
+    .techs__contents-subtitle{
+        margin-top: 20px;
+        font-size: 12px;
+
     }
 }
 
@@ -100,7 +112,6 @@
     .techs {
         width: 100%;
     }
-
     .techs__title {
         margin-top: 90px;
         margin-left: 50px;
@@ -113,7 +124,7 @@
 
     .techs__flex {
         margin: 0 60px;
-        margin-top: 83px;
+        margin-top: 80px;
         margin-bottom: 90px;
     }
 
@@ -121,30 +132,13 @@
         margin-top: 80px;
     }
 }
-
-@media screen and (max-width:320px) {
-    .techs {
-        background-color: #fff;
-    }
-
-    .techs__title {
-        margin-top: 70px;
-        margin-left: 18px;
-        font-size: 18px;
-    }
-
-    .techs__contents {
-        margin-top: 28px;
-        margin-left: 18px;
-        margin-right: 18px;
-    }
-
+@media screen and (max-width:690px) {
     .techs__flex {
-        margin: 0 71px;
-        grid-template-columns: repeat(2, 1fr);
-        margin-top: 50px;
-        margin-bottom: 70px;
+        grid-template-columns: repeat(5, 1fr);
     }
+}
+
+@media screen and (max-width:500px) {
 
     .techs__contents-title {
         margin-top: 50px;
@@ -161,5 +155,35 @@
 
     .techs__flex-item{
         font-size: 12px;
+    }
+
+    .techs__title {
+        margin-top: 70px;
+        margin-left: 18px;
+        font-size: 18px;
+    }
+
+    .techs__contents {
+        margin-top: 28px;
+        margin-left: 18px;
+        margin-right: 18px;
+    }
+
+    .techs__flex {
+        margin: 0 71px;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 50px;
+        margin-bottom: 70px;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .techs {
+        background-color: #fff;
+    }
+
+    .techs__flex {
+        margin: 0 71px;
+        grid-template-columns: repeat(2, 1fr);
     }
 }

@@ -7,7 +7,7 @@ export default function Profile() {
     return (
         <>
             <Header />
-            <section className="profile">
+            <main className="profile">
                 <form className="profile__form">
                     <h3 className="profile__title">Привет, Виталий!</h3>
                     <div className="profile__fields">
@@ -20,17 +20,16 @@ export default function Profile() {
                         </div>
                         <p className="profile__text">E-mail</p>
                     </div>
-                        <button className="profile__button" >
-                            Редактировать
-                        </button>
-
+                    <button className="profile__button" type='submit'>
+                        Редактировать
+                    </button>
                     <Link to='/'>
-                        <button className="profile__signOut" >
+                        <button className="profile__signOut" type='button'>
                             Выйти из аккаунта
                         </button>
                     </Link>
                 </form>
-            </section>
+            </main>
         </>
     )
 }

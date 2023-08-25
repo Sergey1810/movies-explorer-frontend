@@ -96,6 +96,12 @@
     opacity: 0.6;
 }
 
+@media screen and (max-width:1000px){
+    .about-me__info-paragraph {
+        margin-right: 49px;
+    }
+}
+
 @media screen and (max-width:768px) {
     .about-me__title {
         margin-top: 90px;

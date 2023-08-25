@@ -12,9 +12,8 @@ export default function Promo() {
           Листайте ниже, чтобы узнать больше про этот проект и его создателя.
         </p>
         <a href="#AboutProject">
-          <button className='promo__button'>Узнать больше</button>
+          <button className='promo__button' type='button'>Узнать больше</button>
         </a>
-
       </div>
       <div className='promo__image'></div>
     </section>

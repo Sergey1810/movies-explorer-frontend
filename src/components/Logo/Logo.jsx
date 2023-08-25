@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 export default function Logo() {
   return (
-    <Link to='/'><div className='logo'></div></Link>
+    <>
+      <Link to='/'><div className='logo'></div></Link>
+    </>
   )
 }

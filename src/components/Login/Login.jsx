@@ -6,16 +6,16 @@ import './Login.css'
 
 export default function Login() {
   return (
-    <section className='register'>
-      <div className='register__container'>
+    <section className='login'>
+      <main className='login__container'>
         <Logo />
-        <h2 className='register__title'>Рады видеть!</h2>
+        <h1 className='login__title'>Рады видеть!</h1>
         <Forms />
-        <p className='register__text'>
+        <p className='login__text'>
           Ещё не зарегистрированы?
-          <Link to='/signup' className='register__link'> Регистрация</Link>
+          <Link to='/signup' className='login__link'> Регистрация</Link>
         </p>
-      </div>
+      </main>
     </section>
   )
 }

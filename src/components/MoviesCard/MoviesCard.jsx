@@ -4,14 +4,14 @@ import './MoviesCard.css'
 export default function MoviesCard(card) {
 
     return (
-        <div className='moviesCard'>
+        <li className='moviesCard'>
             <img src={card.card.img} alt={card.card.title} className='moviesCard__image' />
-            <div className='moviesCard__content'>
+            <h2 className='moviesCard__content'>
                 <p className='moviesCard__title'>{card.card.title}</p>
                 <button className='moviesCard__likes'></button>
-            </div>
+            </h2>
             <div className='moviesCard__line'></div>
             <p className='moviesCard__times'>{card.card.time}</p>
-        </div>
+        </li>
     )
 }

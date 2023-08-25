@@ -43,4 +43,23 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
+    transition: opacity 0.3s linear;
+}
+
+.errors__link:hover{
+    opacity: 0.6;
+}
+
+@media screen and (max-width:400px) {
+    .errors__title {
+        font-size: 80px;
+        margin-top: 75px;
+    }
+    .errors__subtitle{
+        font-size: 12px;
+    }
+    .errors__link{
+        margin-top: 284px;
+    }
 }
