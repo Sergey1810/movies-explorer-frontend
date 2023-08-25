@@ -59,6 +59,7 @@
    width: 59px;
    height: 34px;
    text-align: center;
+   cursor: pointer;
    transition: opacity 0.3s linear;
 }
 
