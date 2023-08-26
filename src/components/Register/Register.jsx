@@ -6,8 +6,8 @@ import './Register.css'
 
 export default function Register() {
     return (
-        <section className='register'>
-            <main className='register__container'>
+        <main className='register'>
+            <section className='register__container'>
                 <Logo />
                 <h1 className='register__title'>Добро пожаловать!</h1>
                 <Forms />
@@ -15,7 +15,7 @@ export default function Register() {
                     Уже зарегистрированы?
                     <Link to='/signin' className='register__link'> Войти</Link>
                 </p>
-            </main>
-        </section>
+            </section>
+        </main>
     )
 }

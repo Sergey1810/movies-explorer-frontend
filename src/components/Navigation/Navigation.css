@@ -5,6 +5,7 @@
 
 .navigation__menu {
     min-width: calc(100% - 33% - 70px); 
+    margin-left: 3px;
     display: flex;
     justify-content: space-between;
 }
@@ -229,10 +230,10 @@
         margin-bottom: 46px;
     }
     .navigation__burger {
-      width: 40px;
+      width: 39px;
       height: 43px;
       margin-right: 14px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
     .navigation__burger_opened {
         width: 30px;

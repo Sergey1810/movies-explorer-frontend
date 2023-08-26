@@ -41,8 +41,8 @@
     transition: opacity 0.3s linear;
 }
 
-.moviesCard__likes{
-    opacity: 0.6;
+.moviesCard__likes:hover{
+    opacity: 0.5;
 }
 
 .moviesCard__likes_active{
@@ -78,7 +78,7 @@
         max-height: 190px;
     }
     .moviesCard__line{
-        margin-top: 25px;
+        margin-top: 24px;
     }
     .moviesCard__times{
         margin-bottom: 0;
@@ -107,6 +107,6 @@
 
     .moviesCard__times {
         font-size: 10px;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
     }
   }  

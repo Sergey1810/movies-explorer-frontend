@@ -178,7 +178,8 @@
 
     .profile__button {
         font-size: 12px;
-        margin-top: 379px;
+        margin-top: 378px;
+        margin-bottom: 14px;
     }
 
     .profile__signOut {

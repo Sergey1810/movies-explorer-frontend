@@ -32,7 +32,7 @@
    padding-bottom: 13px;
 }
 
-.searchForm__input_active {
+.searchForm__input-active {
    position: absolute;
    bottom: 0;
    right: 0;

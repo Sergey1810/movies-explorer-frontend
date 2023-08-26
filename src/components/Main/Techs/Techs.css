@@ -6,7 +6,7 @@
 .techs__title {
     margin: 0;
     padding: 0;
-    margin-top: 100px;
+    padding-top: 100px;
     margin-left: 70px;
     color: #000;
     font-family: Inter, sans-serif;
@@ -18,7 +18,7 @@
 }
 
 .techs__contents {
-    margin-top: 20px;
+    margin-top: 22px;
     margin-left: 70px;
     margin-right: 70px;
     border-top: 1px solid #000;
@@ -58,15 +58,21 @@
 }
 
 .techs__flex {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 100px 295px;
+    margin: 0 295px;
+    padding: 100px 0;
 }
 
 .techs__flex-item {
+    margin: 0;
+    padding: 0;
     max-width: 90px;
     max-height: 60px;
     padding-top: 21px;
@@ -90,16 +96,16 @@
     .techs__flex {
         max-width: 870px;
         margin: 0 90px;
-        margin-top: 83px;
-        margin-bottom: 90px;
+        padding-top: 83px;
+        padding-bottom: 90px;
     }
 }
 
 @media screen and (max-width:930px) {
     .techs__flex {
         margin: 0 90px;
-        margin-top: 80px;
-        margin-bottom: 90px;
+        padding-top: 80px;
+        padding-bottom: 90px;
     }
     .techs__contents-subtitle{
         margin-top: 20px;
@@ -113,7 +119,7 @@
         width: 100%;
     }
     .techs__title {
-        margin-top: 90px;
+        padding-top: 90px;
         margin-left: 50px;
     }
 
@@ -124,8 +130,8 @@
 
     .techs__flex {
         margin: 0 60px;
-        margin-top: 80px;
-        margin-bottom: 90px;
+        padding-top: 80px;
+        padding-bottom: 90px;
     }
 
     .techs__contents-title {
@@ -158,7 +164,7 @@
     }
 
     .techs__title {
-        margin-top: 69px;
+        padding-top: 69px;
         margin-left: 18px;
         font-size: 18px;
     }
@@ -172,8 +178,8 @@
     .techs__flex {
         margin: 0 71px;
         grid-template-columns: repeat(3, 1fr);
-        margin-top: 50px;
-        margin-bottom: 70px;
+        padding-top: 50px;
+        padding-bottom: 70px;
     }
 }
 
@@ -183,8 +189,9 @@
     }
 
     .techs__flex {
-        margin: 50px 71px;
-        padding-bottom: 20px;
+        margin: 0 71px;
+        padding-top: 50px;
+        padding-bottom: 70px;
         grid-template-columns: repeat(2, 1fr);
     }
 }

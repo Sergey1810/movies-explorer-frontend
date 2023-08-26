@@ -7,9 +7,10 @@ export default function Profile() {
     return (
         <>
             <Header />
-            <main className="profile">
+            <main>
+                <section className="profile">
                 <form className="profile__form">
-                    <h3 className="profile__title">Привет, Виталий!</h3>
+                    <h1 className="profile__title">Привет, Виталий!</h1>
                     <div className="profile__fields">
                         <p className="profile__text">Имя</p>
                         <div className="profile__area profile__area_type_name">
@@ -29,6 +30,7 @@ export default function Profile() {
                         </button>
                     </Link>
                 </form>
+                </section> 
             </main>
         </>
     )

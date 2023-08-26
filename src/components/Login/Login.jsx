@@ -6,8 +6,8 @@ import './Login.css'
 
 export default function Login() {
   return (
-    <section className='login'>
-      <main className='login__container'>
+    <main className='login'>
+      <section className='login__container'>
         <Logo />
         <h1 className='login__title'>Рады видеть!</h1>
         <Forms />
@@ -15,7 +15,7 @@ export default function Login() {
           Ещё не зарегистрированы?
           <Link to='/signup' className='login__link'> Регистрация</Link>
         </p>
-      </main>
-    </section>
+      </section>
+    </main>
   )
 }

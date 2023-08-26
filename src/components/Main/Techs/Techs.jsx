@@ -9,15 +9,15 @@ export default function Techs() {
                 <h2 className='techs__contents-title'>7 технологий</h2>
                 <p className='techs__contents-subtitle'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
             </div>
-            <div className='techs__flex'>
-              <div className='techs__flex-item'>HTML</div>
-              <div className='techs__flex-item'>CSS</div>
-              <div className='techs__flex-item'>JS</div>
-              <div className='techs__flex-item'>React</div>
-              <div className='techs__flex-item'>Git</div>
-              <div className='techs__flex-item'>Express.js</div>
-              <div className='techs__flex-item'>mongoDB</div>
-            </div>
+            <ul className='techs__flex'>
+              <li className='techs__flex-item'>HTML</li>
+              <li className='techs__flex-item'>CSS</li>
+              <li className='techs__flex-item'>JS</li>
+              <li className='techs__flex-item'>React</li>
+              <li className='techs__flex-item'>Git</li>
+              <li className='techs__flex-item'>Express.js</li>
+              <li className='techs__flex-item'>mongoDB</li>
+            </ul>
         </section>
     )
 }

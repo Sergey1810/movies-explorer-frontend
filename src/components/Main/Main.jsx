@@ -11,13 +11,15 @@ import Header from '../Header/Header'
 export default function Main() {
   return (
     <div className='main'>
-      <Header/>
-      <Promo/>
-      <AboutProject/>
-      <Techs/>
-      <AboutMe/>
-      <Portfolio/>
-      <Footer/>
+      <Header />
+      <main>
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
+      <Footer />
     </div>
   )
 }

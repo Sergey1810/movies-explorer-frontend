@@ -20,11 +20,11 @@
 
 .aboutProject__info {
     margin: 0 70px;
-    margin-top: 23px;
+    margin-top: 22px;
     max-width: 1140px;
     border-top: 1px solid #000;
     display: flex;
-    gap: 40px;
+    gap: 50px;
 }
 
 .aboutProject__info-column {}
@@ -133,6 +133,7 @@
     .aboutProject__info{
         margin: 0 50px;
         margin-top: 23px;
+        gap:39px;
     }
 
     .aboutProject__scale {
