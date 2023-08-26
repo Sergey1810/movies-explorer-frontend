@@ -15,8 +15,8 @@ export default function Header() {
                 :
                 <nav className="header__auth">
                     <Link to='/signup' className='header__auth-link'>Регистрация</Link>
-                    <Link to='/signin' className='header__auth-button-link'>
-                        <button className='header__auth-button' type='button'>Войти</button>
+                    <Link to='/signin' className='header__auth-button header__auth-button-link'>
+                        Войти
                     </Link>
                 </nav>}
         </header>

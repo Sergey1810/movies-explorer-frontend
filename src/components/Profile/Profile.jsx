@@ -30,10 +30,8 @@ export default function Profile() {
                         <button className="profile__button" type='submit'>
                             Редактировать
                         </button>
-                        <Link to='/'>
-                            <button className="profile__signOut" type='button'>
+                        <Link to='/' className="profile__signOut">
                                 Выйти из аккаунта
-                            </button>
                         </Link>
                     </form>
                 </section>
