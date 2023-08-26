@@ -79,8 +79,8 @@ export default function Forms() {
                         value={name}
                         onChange={e => nameHandler(e)}
                         placeholder='Имя'
-                        min={2}
-                        max={30}
+                        minlength={2}
+                        maxlength={30}
                         required
                     ></input>
                     {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
@@ -100,7 +100,7 @@ export default function Forms() {
                 {(emailDirty && emailError) && (
                     <p className="forms__error">{emailError}</p>
                 )}
-                
+
                 <label className='forms__label'>Пароль</label>
                 <input
                     onBlur={e => blurHandler(e)}
@@ -110,8 +110,8 @@ export default function Forms() {
                     value={password}
                     onChange={e => passwordHandler(e)}
                     placeholder='Пароль'
-                    min={4}
-                    max={30}
+                    minlength={4}
+                    maxlength={30}
                     required
                 ></input>
                 {(passwordDirty && passwordError) && (

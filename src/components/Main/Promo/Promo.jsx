@@ -11,9 +11,10 @@ export default function Promo() {
         <p className='promo__subtitle'>
           Листайте ниже, чтобы узнать больше про этот проект и его создателя.
         </p>
-        <a href="#AboutProject">
-          <button className='promo__button' type='button'>Узнать больше</button>
-        </a>
+          <button className='promo__button' type='button' onClick={(e) => {
+            e.preventDefault();
+            window.location.href = '#AboutProject';
+          }}>Узнать больше</button>
       </div>
       <div className='promo__image'></div>
     </section>

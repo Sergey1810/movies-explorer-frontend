@@ -9,28 +9,31 @@ export default function Profile() {
             <Header />
             <main>
                 <section className="profile">
-                <form className="profile__form">
-                    <h1 className="profile__title">Привет, Виталий!</h1>
-                    <div className="profile__fields">
-                        <p className="profile__text">Имя</p>
-                        <div className="profile__area profile__area_type_name">
-                            <input className="profile__input" placeholder='Виталий' />
+                    <form className="profile__form">
+                        <h1 className="profile__title">Привет, Виталий!</h1>
+                        <div className="profile__fields">
+                            <p className="profile__text">Имя</p>
+                            <div className="profile__area profile__area_type_name">
+                                <input className="profile__input"
+                                    placeholder='Виталий'
+                                    minlength={2}
+                                    maxlength={30} />
+                            </div>
+                            <div className="profile__area profile__area_type_email">
+                                <input className="profile__input" placeholder='pochta@yandex.ru' min={2} max={30} />
+                            </div>
+                            <p className="profile__text">E-mail</p>
                         </div>
-                        <div className="profile__area profile__area_type_email">
-                            <input className="profile__input" placeholder='pochta@yandex.ru' min={2} max={30} />
-                        </div>
-                        <p className="profile__text">E-mail</p>
-                    </div>
-                    <button className="profile__button" type='submit'>
-                        Редактировать
-                    </button>
-                    <Link to='/'>
-                        <button className="profile__signOut" type='button'>
-                            Выйти из аккаунта
+                        <button className="profile__button" type='submit'>
+                            Редактировать
                         </button>
-                    </Link>
-                </form>
-                </section> 
+                        <Link to='/'>
+                            <button className="profile__signOut" type='button'>
+                                Выйти из аккаунта
+                            </button>
+                        </Link>
+                    </form>
+                </section>
             </main>
         </>
     )
