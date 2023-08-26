@@ -41,42 +41,7 @@ export default function MoviesCardList() {
         title: 'Киноальманах «100 лет дизайна»',
         time: '1ч 42м'
     }
-    // , {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // },
-    // {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }, {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }
-    // , {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }, {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }, {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }
-    // , {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }, {
-    //     img: 'https://avatars.mds.yandex.net/i?id=267b2fa5326ad6b5bd61d73f0b1e46106ac0e562-9181148-images-thumbs&n=13',
-    //     title: 'Киноальманах «100 лет дизайна»',
-    //     time: '1ч 42м'
-    // }
+
     ])
     return (
         <section className='moviesCardList'>
