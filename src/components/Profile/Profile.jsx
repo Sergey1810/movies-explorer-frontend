@@ -16,11 +16,14 @@ export default function Profile() {
                             <div className="profile__area profile__area_type_name">
                                 <input className="profile__input"
                                     placeholder='Виталий'
-                                    minlength={2}
-                                    maxlength={30} />
+                                    minLength="2"
+                                    maxLength="30" />
                             </div>
                             <div className="profile__area profile__area_type_email">
-                                <input className="profile__input" placeholder='pochta@yandex.ru' min={2} max={30} />
+                                <input className="profile__input"
+                                    placeholder='pochta@yandex.ru'
+                                    minLength="2"
+                                    maxLength="30" />
                             </div>
                             <p className="profile__text">E-mail</p>
                         </div>

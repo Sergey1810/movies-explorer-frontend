@@ -79,8 +79,8 @@ export default function Forms() {
                         value={name}
                         onChange={e => nameHandler(e)}
                         placeholder='Имя'
-                        minlength={2}
-                        maxlength={30}
+                        minLength="2"
+                        maxLength="30"
                         required
                     ></input>
                     {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
@@ -110,8 +110,8 @@ export default function Forms() {
                     value={password}
                     onChange={e => passwordHandler(e)}
                     placeholder='Пароль'
-                    minlength={4}
-                    maxlength={30}
+                    minLength="4"
+                    maxLength="30"
                     required
                 ></input>
                 {(passwordDirty && passwordError) && (
