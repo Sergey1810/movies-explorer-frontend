@@ -26,7 +26,7 @@ export default function Navigation() {
                     </div>
                 </nav>
             </div>
-            <button className='navigation__burger' type='button' onClick={handleMobileNav}>
+            <button className={`navigation__burger ${mobileActive && 'navigation__burger_opened'}`} type='button' onClick={handleMobileNav}>
             </button>
         </div>
     )

@@ -141,7 +141,7 @@
 @media screen and (max-width:500px) {
 
     .techs__contents-title {
-        margin-top: 50px;
+        margin-top: 49px;
         font-size: 30px;
         letter-spacing: -1.2px;
     }
@@ -158,7 +158,7 @@
     }
 
     .techs__title {
-        margin-top: 70px;
+        margin-top: 69px;
         margin-left: 18px;
         font-size: 18px;
     }
@@ -183,7 +183,8 @@
     }
 
     .techs__flex {
-        margin: 0 71px;
+        margin: 50px 71px;
+        padding-bottom: 20px;
         grid-template-columns: repeat(2, 1fr);
     }
 }

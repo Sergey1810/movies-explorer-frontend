@@ -100,6 +100,7 @@ export default function Forms() {
                 {(emailDirty && emailError) && (
                     <p className="forms__error">{emailError}</p>
                 )}
+                
                 <label className='forms__label'>Пароль</label>
                 <input
                     onBlur={e => blurHandler(e)}

@@ -1,6 +1,6 @@
 .portfolio {
     width: calc(100% - 140px);
-    padding-bottom: 125px;
+    padding-bottom: 110px;
     margin: 0 70px;
 }
 
@@ -102,7 +102,7 @@
     .portfolio {
         width: calc(100% - 28px);
         margin: 0 14px;
-        padding-bottom: 70px;
+        padding-bottom: 55px;
     }
 
     .portfolio__title {
@@ -114,12 +114,15 @@
     .portfolio__items-title {
         font-size: 18px;
         line-height: 28px;
-        margin-bottom: 0;
+        margin-bottom: 19px;
+        margin-top: 20px;
+        letter-spacing: -0.72px;
     }
 
-    .portfolio__items-icon {
-        width: 18px;
-        height: 28px;
+    .portfolio__items-icons {
+        max-width: 18px;
+        max-height: 28px;
+        margin-bottom: 19px;
     }
 
 }

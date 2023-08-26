@@ -120,6 +120,9 @@
 }
 
 @media screen and (max-width:320px) {
+    .promo__info {
+        margin-top: 44px;
+    }
     .promo__image {
         margin-top: 70px;
         width: 210px;

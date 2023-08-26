@@ -25,13 +25,15 @@
     justify-content: center;
     align-items: center;
     max-width: 1280px;
-    height: 166px;
+    height: 150px;
+    padding-bottom: 10px;
 }
 
 .moviesCardList__button {
     all: unset;
     width: 320px;
     height: 36px;
+    margin-bottom: 35px;
     border-radius: 6px;
     background: #F9F9F9;
     color: #000;
@@ -88,5 +90,14 @@
     .moviesCardList__list {
         max-width: 300px;
         gap: 27px;
+    }
+    .moviesCardList__add {
+        height: 36px;
+        margin-top: 73px;
+        margin-bottom: 53px;
+    }
+
+    .moviesCardList__button {
+        width: 240px;
     }
 }

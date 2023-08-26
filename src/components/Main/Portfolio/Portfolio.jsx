@@ -11,7 +11,7 @@ export default function Portfolio() {
           <a href='https://sergey1810.github.io/russian-travel/' rel="noopener noreferrer" target="_blank" className='portfolio__items-link'>
             <p className='portfolio__items-title'>Статичный сайт</p>
             <div className='portfolio__items-icons'>
-              <img src={arrow} alt="arrow" className='portfolio__items-icon' />
+              <img src={arrow} alt="стрела" className='portfolio__items-icon' />
             </div>
           </a>
         </li>
@@ -19,7 +19,7 @@ export default function Portfolio() {
           <a href='https://github.com/Sergey1810/mesto-react' rel="noopener noreferrer" target="_blank" className='portfolio__items-link'>
             <p className='portfolio__items-title'>Адаптивный сайт</p>
             <div className='portfolio__items-icons'>
-              <img src={arrow} alt="arrow" className='portfolio__items-icon' />
+              <img src={arrow} alt="стрела" className='portfolio__items-icon' />
             </div>
           </a>
         </li>
@@ -27,7 +27,7 @@ export default function Portfolio() {
           <a href='https://github.com/Sergey1810/react-mesto-auth' rel="noopener noreferrer" target="_blank" className='portfolio__items-link'>
             <p className='portfolio__items-title'>Одностраничное приложение</p>
             <div className='portfolio__items-icons'>
-              <img src={arrow} alt="arrow" className='portfolio__items-icon' />
+              <img src={arrow} alt="стрела" className='portfolio__items-icon' />
             </div>
           </a>
         </li>

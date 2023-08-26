@@ -45,6 +45,13 @@
     opacity: 0.6;
 }
 
+@media screen and (max-width:768px) {
+    .register__container {
+            margin: 230px auto;
+        }
+    }
+
+
 @media screen and (max-width:450px) {
     .register__container {
         margin: 56px auto;
@@ -54,6 +61,13 @@
     }
     .register__title{
         margin-top: 50px;
-        margin-bottom: 80px;
+        margin-bottom: 56px;
+    }
+
+    .register__text{
+        font-size: 12px;
+    }
+    .register__link{
+        font-size: 12px;
     }
 }

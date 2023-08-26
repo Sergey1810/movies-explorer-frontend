@@ -16,7 +16,7 @@ export default function Profile() {
                             <input className="profile__input" placeholder='Виталий' />
                         </div>
                         <div className="profile__area profile__area_type_email">
-                            <input className="profile__input" placeholder='pochta@yandex.ru' />
+                            <input className="profile__input" placeholder='pochta@yandex.ru' min={2} max={30} />
                         </div>
                         <p className="profile__text">E-mail</p>
                     </div>

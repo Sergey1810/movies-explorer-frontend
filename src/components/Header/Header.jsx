@@ -9,7 +9,7 @@ export default function Header() {
     const location = useLocation()
 
     return (
-        <header className={`header ${location.pathname === '/' ? 'header__main' : null}`}>
+        <header className={`header ${location.pathname === '/' ? 'header_page_main' : null}`}>
             <div className='header__logo'><Logo /></div> 
             {location.pathname !== '/' ? <Navigation />
                 :
