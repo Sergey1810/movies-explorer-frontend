@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './Forms.css'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { auth } from '../../utils/MainApi'
 
-export default function Forms() {
+export default function Forms(props) {
     const [name, setName] = useState('')
     const [nameDirty, setNameDirty] = useState('false')
     const [nameError, setNameError] = useState('')
@@ -15,6 +16,7 @@ export default function Forms() {
     const [formValid, setFormValid] = useState(true)
 
     const location = useLocation()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (nameError || emailError || passwordError) {
@@ -57,6 +59,7 @@ export default function Forms() {
             setEmailError("")
         }
     }
+
     const passwordHandler = (e) => {
         setPassword(e.target.value)
         if (e.target.value.length < 8) {
@@ -65,12 +68,41 @@ export default function Forms() {
             setPasswordError("")
         }
     }
+    const handleSubmitLogin = (e) => {
+        e.preventDefault();
+        if (!email || !password) {
+            return;
+        }
+        auth.authorize(password, email)
+            .then((data) => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    setEmail('');
+                    setPassword('');
+                    props.handleLogin();
+                    navigate('/', { replace: true });
+                }
+            })
+            .catch((e) => e && props.handleInfoTooltipClick(false));
+    }
+
+    const handleSubmitRegister = (e) => {
+        e.preventDefault();
+        if (password) {
+            auth.register(email, password, name)
+                .then((data) => {
+                    //   data.data && props.handleInfoTooltipClick(true)
+                    navigate('/', { replace: true });
+                })
+            // .catch((e) => e && props.handleInfoTooltipClick(false))
+        }
+    }
 
     return (
-        <form className='forms'>
+        <form className='forms' onSubmit={location.pathname === '/signup' ? handleSubmitRegister : handleSubmitLogin}>
             <div className='forms__container'>
                 {location.pathname === '/signup' ? <>
-                    <label  className='forms__label'>Имя</label>
+                    <label className='forms__label'>Имя</label>
                     <input
                         onBlur={e => blurHandler(e)}
                         className='forms__input'
@@ -86,7 +118,7 @@ export default function Forms() {
                     {(nameDirty && nameError) && <p className="forms__error">{nameError}</p>}
                 </> : null}
 
-                <label  className='forms__label'>Email</label>
+                <label className='forms__label'>Email</label>
                 <input
                     onBlur={e => blurHandler(e)}
                     className='forms__input'
@@ -120,7 +152,7 @@ export default function Forms() {
                     </p>
                 )}
             </div>
-            <button disabled={!formValid} type="submit" className='forms__button'>{location.pathname === '/signup' ? 'Зарегистрироваться':'Войти'}</button>
+            <button disabled={!formValid} type="submit" className='forms__button'>{location.pathname === '/signup' ? 'Зарегистрироваться' : 'Войти'}</button>
         </form>
     )
 }

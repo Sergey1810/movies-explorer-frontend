@@ -188,9 +188,10 @@
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:420px) {
     .about-me {
         max-width: 320px;
+        margin: 0 auto;
     }
 
     .about-me__title {
