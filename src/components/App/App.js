@@ -11,6 +11,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useEffect, useState } from 'react';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { api, auth } from '../../utils/MainApi';
+import {moviesApi} from '../../utils/MoviesApi'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
@@ -48,11 +49,13 @@ function App() {
   }, [])
 
   useEffect(() => {
-    api.getInitialMovies().then((movies) => {
+    moviesApi.getAllMovies().then((movies) => {
       setMovies(movies)
     })
       .catch((e) => console.log(e))
   }, [])
+
+  console.log(movies)
 
   const handleLogin = () => {
     setIsAuth(true);
@@ -68,7 +71,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/movies' element={<ProtectedRouteElement element={Movies} isAuth={isAuth} />} />
+          <Route path='/movies' element={<ProtectedRouteElement element={Movies}  isAuth={isAuth} />} />
           <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isAuth={isAuth} />} />
           <Route path='/profile' element={<ProtectedRouteElement element={Profile} isAuth={isAuth} />} />
           <Route path='/signin' element={<Login handleLogin={handleLogin}/>} />

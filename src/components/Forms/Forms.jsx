@@ -83,7 +83,7 @@ export default function Forms(props) {
                     navigate('/', { replace: true });
                 }
             })
-            .catch((e) => e && props.handleInfoTooltipClick(false));
+            .catch((e) => console.log(e));
     }
 
     const handleSubmitRegister = (e) => {

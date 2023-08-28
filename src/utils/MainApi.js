@@ -13,14 +13,20 @@ export class Api {
 
     getUserInfo(){
        return fetch(`${this.baseUrl}/users/me`, {
-                headers: this.headers
+        headers: {
+            'Authorization': `${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
             })
             .then((res) => {return this._checkResponse(res)})
         }
   
     getInitialMovies() {
        return fetch(`${this.baseUrl}/movies`, {
-            headers: this.headers
+        headers: {
+            'Authorization': `${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         })
         .then((res) => {return this._checkResponse(res)})
     }
@@ -28,7 +34,10 @@ export class Api {
     setUserInfo(name, about){
     return fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: this.headers,
+            headers: {
+                'Authorization': `${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+              },
             body: JSON.stringify({
               name: `${name}`,
              about: `${about}`
@@ -39,7 +48,10 @@ export class Api {
     setAddCard(name, link){
     return fetch(`${this.baseUrl}/cards`, {
             method: 'POST',
-            headers: this.headers,
+            headers: {
+                'Authorization': `${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+              },
             body: JSON.stringify({
               name: `${name}`,
               link: `${link}`
@@ -51,7 +63,10 @@ export class Api {
     setDeleteCard(id){ 
     return fetch(`${this.baseUrl}/cards/${id}`, {
             method: 'DELETE',
-            headers: this.headers,
+            headers: {
+                'Authorization': `${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+              }
             })
             .then(res => {return this._checkResponse(res)})
     }  
@@ -59,7 +74,10 @@ export class Api {
     setAddLike(id){
         return fetch(`${this.baseUrl}/cards/${id}/likes`, {
                 method: 'PUT',
-                headers: this.headers,
+                headers: {
+                    'Authorization': `${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                  }
              }) 
              .then(res => {return this._checkResponse(res)})
     }
@@ -67,7 +85,10 @@ export class Api {
     setRemoveLike(id){
           return fetch(`${this.baseUrl}/cards/${id}/likes`, {
                 method: 'DELETE',
-                headers: this.headers,
+                headers: {
+                    'Authorization': `${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                  }
              })
              .then(res => {return this._checkResponse(res)})
     }
@@ -75,7 +96,7 @@ export class Api {
   }
 
   export const api = new Api({
-    baseUrl: 'http://api.ls.nomoreparties.sbs',
+    baseUrl: 'https://api.ls.nomoreparties.sbs',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -133,5 +154,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-    baseUrl: 'http://api.ls.nomoreparties.sbs',
+    baseUrl: 'https://api.ls.nomoreparties.sbs',
 }); 
