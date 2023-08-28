@@ -18,7 +18,7 @@ export class Api {
             .then((res) => {return this._checkResponse(res)})
         }
   
-    getInitialCards() {
+    getInitialMovies() {
        return fetch(`${this.baseUrl}/movies`, {
             headers: this.headers
         })
@@ -75,7 +75,7 @@ export class Api {
   }
 
   export const api = new Api({
-    baseUrl: 'https://api.ls.nomoreparties.sbs',
+    baseUrl: 'http://api.ls.nomoreparties.sbs',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -133,5 +133,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-    baseUrl: 'https://api.ls.nomoreparties.sbs',
+    baseUrl: 'http://api.ls.nomoreparties.sbs',
 }); 
