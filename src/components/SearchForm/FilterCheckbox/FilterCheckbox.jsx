@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import './FilterCheckbox.css'
 
-export default function FilterCheckbox() {
-    const [checked, setChecked] = useState(true)
-    const handleChecked = () => {
-        setChecked(!checked)
-    }
-
+export default function FilterCheckbox({checked, handleChecked}) {
+  
     return ( 
         <div className="filterCheckbox">
             <label className="filterCheckbox__toggle">

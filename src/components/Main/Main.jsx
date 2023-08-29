@@ -8,10 +8,10 @@ import Footer from '../Footer/Footer'
 import './Main.css'
 import Header from '../Header/Header'
 
-export default function Main() {
+export default function Main({isAuth}) {
   return (
     <div className='main'>
-      <Header />
+      <Header isAuth={isAuth}/>
       <main>
         <Promo />
         <AboutProject />

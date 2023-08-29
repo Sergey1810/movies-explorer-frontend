@@ -21,7 +21,7 @@ export class Api {
             .then((res) => {return this._checkResponse(res)})
         }
   
-    getInitialMovies() {
+    getMyMovies() {
        return fetch(`${this.baseUrl}/movies`, {
         headers: {
             'Authorization': `${localStorage.getItem('token')}`,
@@ -31,7 +31,7 @@ export class Api {
         .then((res) => {return this._checkResponse(res)})
     }
 
-    setUserInfo(name, about){
+    setUserInfo(name, email){
     return fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
@@ -40,28 +40,25 @@ export class Api {
               },
             body: JSON.stringify({
               name: `${name}`,
-             about: `${about}`
+             email: `${email}`
             })})
             .then(res => {return this._checkResponse(res)})
     }
 
-    setAddCard(name, link){
-    return fetch(`${this.baseUrl}/cards`, {
+    setAddMovies(data){
+    return fetch(`${this.baseUrl}/movies`, {
             method: 'POST',
             headers: {
                 'Authorization': `${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({
-              name: `${name}`,
-              link: `${link}`
-             })   
+            body: JSON.stringify(data)   
          })
          .then(res => {return this._checkResponse(res)})
         }
 
-    setDeleteCard(id){ 
-    return fetch(`${this.baseUrl}/cards/${id}`, {
+    setDeleteMovies(id){ 
+    return fetch(`${this.baseUrl}/movies/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `${localStorage.getItem('token')}`,
@@ -71,27 +68,27 @@ export class Api {
             .then(res => {return this._checkResponse(res)})
     }  
 
-    setAddLike(id){
-        return fetch(`${this.baseUrl}/cards/${id}/likes`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                  }
-             }) 
-             .then(res => {return this._checkResponse(res)})
-    }
+    // setAddLike(id){
+    //     return fetch(`${this.baseUrl}/cards/${id}/likes`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Authorization': `${localStorage.getItem('token')}`,
+    //                 'Content-Type': 'application/json'
+    //               }
+    //          }) 
+    //          .then(res => {return this._checkResponse(res)})
+    // }
 
-    setRemoveLike(id){
-          return fetch(`${this.baseUrl}/cards/${id}/likes`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                  }
-             })
-             .then(res => {return this._checkResponse(res)})
-    }
+    // setRemoveLike(id){
+    //       return fetch(`${this.baseUrl}/cards/${id}/likes`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Authorization': `${localStorage.getItem('token')}`,
+    //                 'Content-Type': 'application/json'
+    //               }
+    //          })
+    //          .then(res => {return this._checkResponse(res)})
+    // }
 
   }
 

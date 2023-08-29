@@ -80,7 +80,7 @@ export default function Forms(props) {
                     setEmail('');
                     setPassword('');
                     props.handleLogin();
-                    navigate('/', { replace: true });
+                    navigate('/movies', { replace: true });
                 }
             })
             .catch((e) => console.log(e));
@@ -92,7 +92,7 @@ export default function Forms(props) {
             auth.register(email, password, name)
                 .then((data) => {
                     //   data.data && props.handleInfoTooltipClick(true)
-                    navigate('/', { replace: true });
+                    navigate('/movies', { replace: true });
                 })
             // .catch((e) => e && props.handleInfoTooltipClick(false))
         }

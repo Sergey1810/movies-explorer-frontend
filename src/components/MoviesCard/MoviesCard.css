@@ -10,6 +10,7 @@
 .moviesCard__image {
     max-width: 270px;
     max-height: 151px;
+    min-height: 151px;
 }
 
 .moviesCard__content {
@@ -30,6 +31,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    height: 32px;
 }
 
 .moviesCard__likes {
@@ -39,6 +41,10 @@
     height: 24px;
     cursor: pointer;
     transition: opacity 0.3s linear;
+}
+
+.moviesCard__likes_remove:hover{
+    background-image: url('../../images/deleteMovies.svg');
 }
 
 .moviesCard__likes:hover{
