@@ -74,7 +74,9 @@ function App() {
 
   const handleResize = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
-    if (width > 1160) {
+    if(!moviesLocalStorage){
+      return
+    }else if (width > 1160) {
       setMovies(moviesLocalStorage.slice(0, 16))
       setAddMovies(4)
     } else if (width > 890 && width < 1160) {
