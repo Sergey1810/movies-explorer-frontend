@@ -70,7 +70,7 @@ function App() {
     return () => {
       window.removeEventListener('resize', resize);
     };
-  }, [width, navigate, movies]);
+  }, [width, navigate]);
 
 
   const handleResize = () => {

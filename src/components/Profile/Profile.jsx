@@ -47,7 +47,7 @@ export default function Profile({ isAuth, handleLoginOut, infoMessage, handleSub
             setFormValid(true)
         }
 
-    }, [nameError, emailError])
+    }, [nameError, emailError, name, email])
 
     return (
         <>

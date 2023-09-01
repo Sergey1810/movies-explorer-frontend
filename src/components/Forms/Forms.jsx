@@ -99,12 +99,30 @@ export default function Forms(props) {
 
     const handleSubmitRegister = (e) => {
         e.preventDefault();
-        if (password) {
+        let isData = {}
+        if (password&&email&&password) {
             mainApi.register(email, password, name)
                 .then((data) => {
-                    navigate('/movies', { replace: true });
+                    isData = data
                 })
              .catch((e) => setErrors(`Произошла ошибка`))
+        if(isData){
+            setTimeout(()=>{
+                mainApi.authorize(password, email)
+                .then((data) => {
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                        setEmail('');
+                        setPassword('');
+                        props.handleLogin();
+                        setErrors('')
+                        navigate('/movies', { replace: true });
+                    }
+                })
+                .catch((e) => setErrors(`Произошла ошибка`));
+                navigate('/movies', { replace: true });
+            }, 1000)  
+        }  
         }
     }
 
