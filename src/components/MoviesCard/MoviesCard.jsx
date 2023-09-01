@@ -17,7 +17,6 @@ export default function MoviesCard({ card, myMovies, handleLikeMovies, handleDel
 
 
     const handleClick = () => {
-        console.log(movie)
         handleLikeMovies(movie)
     }
 

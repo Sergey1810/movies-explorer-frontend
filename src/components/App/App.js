@@ -66,10 +66,11 @@ function App() {
     if (isAuth) {
       handleResize()
     }
+    
     return () => {
       window.removeEventListener('resize', resize);
     };
-  }, [width, navigate]);
+  }, [width, navigate, movies]);
 
 
   const handleResize = () => {
@@ -98,6 +99,7 @@ function App() {
     if (moviesLocalStorage.length === movies.length) {
       setIsAddButton(true)
     }
+    setIsAddButton(false)
   }
 
   useEffect(() => {
@@ -151,8 +153,7 @@ function App() {
     const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
     if(!searchMovies){
       setErrorMessage('Ничего не найдено')
-    }
-    if (isShorts) {
+    }else if (isShorts) {
       const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
       if (!shortsMovies) {
         setErrorMessage('Ничего не найдено')
