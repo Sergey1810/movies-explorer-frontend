@@ -1,29 +1,39 @@
 import React, { useState, useEffect } from 'react'
 import './Forms.css'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { auth } from '../../utils/MainApi'
+import { mainApi } from '../../utils/MainApi'
 
 export default function Forms(props) {
     const [name, setName] = useState('')
     const [nameDirty, setNameDirty] = useState('false')
-    const [nameError, setNameError] = useState('')
+    const [nameError, setNameError] = useState('Что-то пошло не так...')
     const [email, setEmail] = useState('')
     const [emailDirty, setEmailDirty] = useState('false')
-    const [emailError, setEmailError] = useState('')
+    const [emailError, setEmailError] = useState('Что-то пошло не так...')
     const [password, setPassword] = useState('')
     const [passwordDirty, setPasswordDirty] = useState('false')
-    const [passwordError, setPasswordError] = useState('')
-    const [formValid, setFormValid] = useState(true)
+    const [passwordError, setPasswordError] = useState('Что-то пошло не так...')
+    const [formValid, setFormValid] = useState(false)
+    const [errors, setErrors] = useState('')
 
     const location = useLocation()
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (nameError || emailError || passwordError) {
-            setFormValid(false)
-        } else {
-            setFormValid(true)
+        if(location.pathname === '/signup'){
+            if (nameError || emailError || passwordError) {
+                setFormValid(false)
+            } else {
+                setFormValid(true)
+            }
+        }else if (location.pathname === '/signin'){
+            if ( emailError || passwordError) {
+                setFormValid(false)
+            } else {
+                setFormValid(true)
+            }
         }
+       
     }, [nameError, emailError, passwordError])
 
     const blurHandler = (e) => {
@@ -42,12 +52,13 @@ export default function Forms(props) {
     }
 
     const nameHandler = (e) => {
+        const reg = /^[A-ZА-ЯЁ -]+$/i
         setName(e.target.value)
-        if (e.target.value.length < 4 || e.target.value.length > 25) {
+        if (!reg.test(String(e.target.value).toLowerCase())) {
             setNameError('Что-то пошло не так...')
         } else {
             setNameError("")
-        }
+        }  
     }
 
     const emailHandler = (e) => {
@@ -73,7 +84,7 @@ export default function Forms(props) {
         if (!email || !password) {
             return;
         }
-        auth.authorize(password, email)
+        mainApi.authorize(password, email)
             .then((data) => {
                 if (data.token) {
                     localStorage.setItem('token', data.token);
@@ -83,18 +94,17 @@ export default function Forms(props) {
                     navigate('/movies', { replace: true });
                 }
             })
-            .catch((e) => console.log(e));
+            .catch((e) => setErrors(`Произошла ошибка`));
     }
 
     const handleSubmitRegister = (e) => {
         e.preventDefault();
         if (password) {
-            auth.register(email, password, name)
+            mainApi.register(email, password, name)
                 .then((data) => {
-                    //   data.data && props.handleInfoTooltipClick(true)
                     navigate('/movies', { replace: true });
                 })
-            // .catch((e) => e && props.handleInfoTooltipClick(false))
+             .catch((e) => setErrors(`Произошла ошибка`))
         }
     }
 
@@ -152,6 +162,7 @@ export default function Forms(props) {
                     </p>
                 )}
             </div>
+            <span className='forms__error'>{`${errors}`}</span>
             <button disabled={!formValid} type="submit" className='forms__button'>{location.pathname === '/signup' ? 'Зарегистрироваться' : 'Войти'}</button>
         </form>
     )

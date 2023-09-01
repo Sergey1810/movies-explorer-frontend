@@ -22,6 +22,7 @@
    all: unset;
    border: none;
    max-width: 100%;
+   width: 50%;
    color: #A0A0A0;
    font-feature-settings: 'clig' off, 'liga' off;
    font-family: Inter, sans-serif;

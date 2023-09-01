@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import './MoviesCardList.css'
-import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
-export default function MoviesCardList({movies, handleLikeMovies, handleDeleteMovies}) {
-    
+export default function MoviesCardList({ movies, myMovies, handleLikeMovies, handleDeleteMovies, handleAddMovies }) {
+    const location = useLocation()
+
     return (
         <section className='moviesCardList'>
             <ul className='moviesCardList__list'>
-                {movies.map((card) => <MoviesCard key={card.id&&card._id} card={card} handleLikeMovies={handleLikeMovies} handleDeleteMovies={handleDeleteMovies}/>)}
+                {location.pathname === '/movies' ?
+                    (movies ? movies.map((card) => <MoviesCard
+                        key={card.id ? card.id : card._id}
+                        card={card}
+                        myMovies={myMovies}
+                        handleLikeMovies={handleLikeMovies}
+                        handleDeleteMovies={handleDeleteMovies}
+                    />) : 'Ничего не найдено')
+                    :
+                    (myMovies ? myMovies.map((card) => <MoviesCard
+                        key={card.id ? card.id : card._id}
+                        card={card}
+                        movies={myMovies}
+                        handleLikeMovies={handleLikeMovies}
+                        handleDeleteMovies={handleDeleteMovies}
+                    />) : 'Ничего не найдено')
+                }
             </ul>
-            <div className='moviesCardList__add'>
-                <button className='moviesCardList__button' type='button'>Ещё</button>
-            </div>
+            {location.pathname === '/movies' && <div className='moviesCardList__add'>
+                <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button>
+            </div>}
+
         </section>
     )
 }

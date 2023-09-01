@@ -3,15 +3,25 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
+import Preloader from '../Preloader/Preloader'
 import './Movies.css'
 
-export default function Movies({ isAuth, movies, handleSearchMovies, handleLikeMovies}) {
+export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMovies, movies, handleLikeMovies, checkShorts, myMovies, handleAddMovies, handleDeleteMovies, }) {
+
     return (
         <>
             <Header isAuth={isAuth} />
             <main className='movies'>
-                <SearchForm handleSearchMovies={handleSearchMovies} />
-                <MoviesCardList movies={movies} handleLikeMovies={handleLikeMovies} />
+                <SearchForm handleSearchMovies={handleSearchMovies} checkShorts={checkShorts} movies={movies} />
+                {isLoading && <Preloader />}
+                {errorMessage && <span className="movies__error">{errorMessage}</span>}
+                {movies ? <MoviesCardList 
+                movies={movies} 
+                myMovies={myMovies} 
+                handleLikeMovies={handleLikeMovies} 
+                handleAddMovies={handleAddMovies} 
+                handleDeleteMovies={handleDeleteMovies} 
+                /> : null}
             </main>
             <Footer />
         </>

@@ -100,7 +100,7 @@
 }
 
 .profile__input:focus {
-    background-color:  rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .profile__button {
@@ -116,6 +116,15 @@
     line-height: normal;
     transition: opacity 0.3s linear;
     cursor: pointer;
+}
+
+.profile__error {
+    color: #FF3055;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .profile__button:hover {
@@ -142,7 +151,7 @@
 }
 
 .profile__signOut:hover {
-    opacity: 0.6; 
+    opacity: 0.6;
 }
 
 @media all and (max-width: 850px) {
@@ -150,7 +159,7 @@
         padding: 236px 0 0;
     }
 
-    .profile__fields{
+    .profile__fields {
         margin-top: 0;
     }
 
@@ -169,7 +178,7 @@
         padding: 70px 0 0;
     }
 
-    .profile__fields{
+    .profile__fields {
         margin-top: 0;
     }
 

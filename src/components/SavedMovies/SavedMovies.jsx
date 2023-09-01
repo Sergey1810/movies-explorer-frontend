@@ -5,13 +5,13 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import './SavedMovies.css'
 
-export default function SavedMovies({isAuth, myMovies, handleDeleteMovies}) {
+export default function SavedMovies({isAuth, myMovies, handleDeleteMovies, handleSearch}) {
     return (
         <>
             <Header isAuth={isAuth}/>
             <main className='savedMovies'>
-                <SearchForm />
-                <MoviesCardList movies={myMovies} handleDeleteMovies={handleDeleteMovies}/>
+                <SearchForm handleSearch={handleSearch} myMovies={myMovies}/>
+                <MoviesCardList myMovies={myMovies} handleDeleteMovies={handleDeleteMovies}/>
             </main>
             <Footer />
         </>

@@ -72,6 +72,10 @@
     opacity: 0.6;
 }
 
+.forms__button:disabled{
+    opacity: 0.4;
+}
+
 .forms__error {
     color: #FF3055;
     font-family: Inter, sans-serif;
