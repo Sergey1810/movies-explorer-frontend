@@ -90,7 +90,8 @@
     }
     .moviesCard__image{
         max-width: 339px;
-        max-height: 190px;
+        min-height: 190px;
+        height: 100%;
     }
     .moviesCard__line{
         margin-top: 24px;

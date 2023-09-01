@@ -3,7 +3,7 @@ import './SearchForm.css'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import { useLocation } from 'react-router-dom'
 
-export default function SearchForm({ handleSearchMovies, checkShorts, movies, handleSearch, myMovies }) {
+export default function SearchForm({ handleSearchMovies, searchMovies }) {
     const [movie, setMovie] = useState('')
     const [checkbox, setCheckbox] = useState(false)
     const [search, setSearch] = useState('')
@@ -15,7 +15,7 @@ export default function SearchForm({ handleSearchMovies, checkShorts, movies, ha
         if (location.pathname === '/movies') {
             handleSearchMovies(checkbox, movie)
         } else if (location.pathname === '/movies-saved') {
-            handleSearch(movie, checkbox, myMovies)
+            searchMovies(checkbox, movie)
         }
     }
 
@@ -26,6 +26,8 @@ export default function SearchForm({ handleSearchMovies, checkShorts, movies, ha
                 setSearch('Нужно ввести ключевое слово')
             }
             handleSearchMovies(checkbox, movie)
+        } else if (location.pathname === '/movies-saved') {
+            searchMovies(checkbox, movie)
         }
     }
 
@@ -40,7 +42,7 @@ export default function SearchForm({ handleSearchMovies, checkShorts, movies, ha
         <section className='searchForm'>
             <form className='searchForm__content' onSubmit={handleSubmit}>
                 <div className='searchForm__container'>
-                    <input type="text" placeholder={search?search:'Фильм'} className='searchForm__input' value={movie} onChange={e => setMovie(e.target.value)} />
+                    <input type="text" placeholder={search ? search : 'Фильм'} className='searchForm__input' value={movie} onChange={e => setMovie(e.target.value)} />
                     <button className='searchForm__button' type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>

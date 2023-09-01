@@ -21,11 +21,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [movies, setMovies] = useState([])
   const [myMovies, setMyMovies] = useState([])
-  const [newMovieData, setNewMovieData] = useState({})
   const [infoMessage, setInfoMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [width, setWidth] = useState(window.innerWidth);
   const [addMovies, setAddMovies] = useState(0)
+  const [isAddButton, setIsAddButton] = useState(false)
 
   const navigate = useNavigate()
 
@@ -63,14 +63,16 @@ function App() {
       setWidth(e.target.innerWidth);
     };
     window.addEventListener('resize', resize);
-    handleResize()
+    if (isAuth) {
+      handleResize()
+    }
     return () => {
       window.removeEventListener('resize', resize);
     };
   }, [width, navigate]);
 
-  
-  function handleResize() {
+
+  const handleResize = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
     if (width > 1160) {
       setMovies(moviesLocalStorage.slice(0, 16))
@@ -87,9 +89,12 @@ function App() {
     }
   }
 
-  const handleAddMovies = () =>{
+  const handleAddMovies = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
-    setMovies(moviesLocalStorage.slice(0, movies.length+addMovies))
+    setMovies(moviesLocalStorage.slice(0, movies.length + addMovies))
+    if (moviesLocalStorage.length === movies.length) {
+      setIsAddButton(true)
+    }
   }
 
   useEffect(() => {
@@ -97,30 +102,32 @@ function App() {
       setCurrentUser(users)
     })
       .catch((e) => console.log(e))
-  }, [])
+  }, [navigate])
 
   useEffect(() => {
     mainApi.getMyMovies().then((movies) => {
       setMyMovies(movies)
     })
       .catch((e) => console.log(e))
-  }, [])
+  }, [navigate])
 
   const handleSearchMovies = (isShorts, movieName) => {
     setIsLoading(true)
-    console.log(isShorts)
     moviesApi.getAllMovies()
       .then((movies) => {
-        const serchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-        if (serchMovies.length === 0) {
+        const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+        if (searchMovies.length === 0) {
           setErrorMessage('Ничего не найдено')
           localStorage.removeItem('movies')
         }
-        localStorage.setItem('movies', JSON.stringify(serchMovies))
+        localStorage.setItem('movies', JSON.stringify(searchMovies))
         localStorage.setItem('searchText', movieName)
         localStorage.setItem('isShort', isShorts)
         if (isShorts) {
-          const shortsMovies = serchMovies.map((movie) => movie.duration <= 40)
+          const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
+          if (!shortsMovies) {
+            setErrorMessage('Ничего не найдено')
+          }
           localStorage.setItem('movies', JSON.stringify(shortsMovies))
           localStorage.setItem('searchText', movieName)
           localStorage.setItem('isShort', isShorts)
@@ -130,23 +137,36 @@ function App() {
       })
       .catch(e => {
         setIsLoading(false)
-        if(e){
+        if (e) {
           localStorage.removeItem('movies')
           setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
         }
       })
   }
 
-  useEffect(()=>{
-    const moviesLocalStorage = localStorage.getItem('movies')
-    if(moviesLocalStorage) {
-    setMovies(JSON.parse(moviesLocalStorage))
+  const searchMovies = (isShorts, movieName) => {
+    const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    if(!searchMovies){
+      setErrorMessage('Ничего не найдено')
     }
-  },[isLoading])
+    if (isShorts) {
+      const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
+      if (!shortsMovies) {
+        setErrorMessage('Ничего не найдено')
+      }
+    }
+  }
+
+  useEffect(() => {
+    const moviesLocalStorage = localStorage.getItem('movies')
+    if (moviesLocalStorage) {
+      setMovies(JSON.parse(moviesLocalStorage))
+    }
+  }, [isLoading])
 
 
   const handleLikeMovies = (movie) => {
-    setNewMovieData({
+    mainApi.setAddMovies({
       image: `https://api.nomoreparties.co${movie.image.url}`,
       trailerLink: movie.trailerLink,
       thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
@@ -159,7 +179,6 @@ function App() {
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
     })
-    mainApi.setAddMovies(newMovieData)
       .then((data) => {
         setMyMovies([...myMovies, data])
       })
@@ -191,39 +210,6 @@ function App() {
     setIsAuth(false)
   }
 
-  // const checkShorts = (movies) => {
-  //   const shorts = movies.map((movie) => movie.duration <= 40)
-  //   return shorts
-  // }
-
-  // const handleSearch = (movieName, isShorts, movies) => {
-  //   const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-  //   const shortsMovies = isShorts ? checkShorts(searchMovies) : searchMovies
-  //   return shortsMovies
-  // }
-
-  // const handleSearchMoviess = (movieName, isShorts) => {
-  //   moviesApi.getAllMovies()
-  //     .then((movies) => {
-  //       const moviesFilter = handleSearch(movieName, isShorts, movies)
-  //       localStorage.setItem('movies', JSON.stringify(moviesFilter))
-  //       localStorage.setItem('searchText', movieName)
-  //       localStorage.setItem('isShort', isShorts)
-  //       handleResize()
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
-
-  // useEffect(() => {
-  //   setMovies(JSON.parse(localStorage.getItem('movies')))
-  // }, [setMovies])
-
-  // function isMovieSave(movies) {
-  //   myMovies.some(movie => movie.movieId === movies.id && movie.owner === currentUser._id)
-  // }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -242,6 +228,7 @@ function App() {
               handleLikeMovies={handleLikeMovies}
               handleAddMovies={handleAddMovies}
               handleDeleteMovies={handleDeleteMovies}
+              isAddButton={isAddButton}
             />} />
           <Route
             path='/saved-movies'
@@ -250,8 +237,17 @@ function App() {
               isAuth={isAuth}
               myMovies={myMovies}
               handleDeleteMovies={handleDeleteMovies}
-               />} />
-          <Route path='/profile' element={<ProtectedRouteElement element={Profile} isAuth={isAuth} handleLoginOut={handleLoginOut} infoMessage={infoMessage} handleSubmitUpdateUsers={handleSubmitUpdateUsers} />} />
+              searchMovies={searchMovies}
+            />} />
+          <Route
+            path='/profile'
+            element={<ProtectedRouteElement
+              element={Profile}
+              isAuth={isAuth}
+              handleLoginOut={handleLoginOut}
+              infoMessage={infoMessage}
+              handleSubmitUpdateUsers={handleSubmitUpdateUsers}
+            />} />
           <Route path='/signin' element={<Login handleLogin={handleLogin} />} />
           <Route path='/signup' element={<Register />} />
           <Route path='*' element={<Errors />} />

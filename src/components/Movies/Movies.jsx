@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Preloader from '../Preloader/Preloader'
 import './Movies.css'
 
-export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMovies, movies, handleLikeMovies, checkShorts, myMovies, handleAddMovies, handleDeleteMovies, }) {
+export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMovies, movies, handleLikeMovies, checkShorts, myMovies, handleAddMovies, handleDeleteMovies, isAddButton }) {
 
     return (
         <>
@@ -15,12 +15,13 @@ export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMo
                 <SearchForm handleSearchMovies={handleSearchMovies} checkShorts={checkShorts} movies={movies} />
                 {isLoading && <Preloader />}
                 {errorMessage && <span className="movies__error">{errorMessage}</span>}
-                {movies ? <MoviesCardList 
-                movies={movies} 
-                myMovies={myMovies} 
-                handleLikeMovies={handleLikeMovies} 
-                handleAddMovies={handleAddMovies} 
-                handleDeleteMovies={handleDeleteMovies} 
+                {movies ? <MoviesCardList
+                    isAddButton={isAddButton}
+                    movies={movies}
+                    myMovies={myMovies}
+                    handleLikeMovies={handleLikeMovies}
+                    handleAddMovies={handleAddMovies}
+                    handleDeleteMovies={handleDeleteMovies}
                 /> : null}
             </main>
             <Footer />

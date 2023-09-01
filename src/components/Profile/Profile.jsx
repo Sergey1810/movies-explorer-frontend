@@ -49,8 +49,6 @@ export default function Profile({ isAuth, handleLoginOut, infoMessage, handleSub
 
     }, [nameError, emailError])
 
-
-
     return (
         <>
             <Header isAuth={isAuth} />

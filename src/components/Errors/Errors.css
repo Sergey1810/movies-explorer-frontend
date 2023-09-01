@@ -32,6 +32,7 @@
 }
 
 .errors__link {
+    all: unset;
     margin: 0;
     padding: 0;
     margin-top: 184px;

@@ -39,7 +39,7 @@
     padding: 0;
     position: absolute;
     inset: 0;
-    background-color: #e08530;
+    background-color: #2BE080;
     border-radius: 16px;
     transition: 0.6s;
     transform: scale(-1, -1);
@@ -57,7 +57,7 @@
   }
   
   .filterCheckbox__checkbox:checked ~ .filterCheckbox__slider {
-    background-color: #2BE080;
+    background-color: #e0982b;
   }
   
   .filterCheckbox__checkbox:checked ~ .filterCheckbox__slider:before {
