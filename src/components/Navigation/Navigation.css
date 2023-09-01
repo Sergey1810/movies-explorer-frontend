@@ -45,6 +45,10 @@
     margin-right: 16px;
 }
 
+.navigation__item-link-main{
+   color:#FFF
+}
+
 .navigation__item-link_active {
     font-weight: 500;
 }
