@@ -87,6 +87,7 @@ function App() {
       setMovies(moviesLocalStorage.slice(0, 5))
       setAddMovies(2)
     }
+    return
   }
 
   const handleAddMovies = () => {
