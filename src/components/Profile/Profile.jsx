@@ -7,10 +7,10 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 export default function Profile({ isAuth, handleLoginOut, infoMessage, handleSubmitUpdateUsers }) {
     const users = useContext(CurrentUserContext)
 
-    const [name, setName] = useState('')
-    const [nameError, setNameError] = useState('Что-то пошло не так...')
-    const [email, setEmail] = useState('')
-    const [emailError, setEmailError] = useState('Что-то пошло не так...')
+    const [name, setName] = useState(users.name)
+    const [nameError, setNameError] = useState('')
+    const [email, setEmail] = useState(users.email)
+    const [emailError, setEmailError] = useState('')
     const [formValid, setFormValid] = useState(false)
 
     const handleSubmit = (e) => {
@@ -39,7 +39,9 @@ export default function Profile({ isAuth, handleLoginOut, infoMessage, handleSub
     }
 
     useEffect(() => {
-        if (nameError || emailError) {
+        if (!name || !email) {
+            setFormValid(false)
+        } else if (nameError || emailError) {
             setFormValid(false)
         } else if (users.name === name && users.email === email) {
             setFormValid(false)

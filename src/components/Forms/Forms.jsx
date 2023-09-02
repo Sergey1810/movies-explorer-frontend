@@ -6,13 +6,13 @@ import { mainApi } from '../../utils/MainApi'
 export default function Forms(props) {
     const [name, setName] = useState('')
     const [nameDirty, setNameDirty] = useState('false')
-    const [nameError, setNameError] = useState('Что-то пошло не так...')
+    const [nameError, setNameError] = useState('')
     const [email, setEmail] = useState('')
     const [emailDirty, setEmailDirty] = useState('false')
-    const [emailError, setEmailError] = useState('Что-то пошло не так...')
+    const [emailError, setEmailError] = useState('')
     const [password, setPassword] = useState('')
     const [passwordDirty, setPasswordDirty] = useState('false')
-    const [passwordError, setPasswordError] = useState('Что-то пошло не так...')
+    const [passwordError, setPasswordError] = useState('')
     const [formValid, setFormValid] = useState(false)
     const [errors, setErrors] = useState('')
 
@@ -20,21 +20,26 @@ export default function Forms(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(location.pathname === '/signup'){
-            if (nameError || emailError || passwordError) {
+        if (location.pathname === '/signup') {
+            if (!name || !email || !password) {
+                setFormValid(false)
+            } else if (nameError || emailError || passwordError) {
                 setFormValid(false)
             } else {
                 setFormValid(true)
             }
-        }else if (location.pathname === '/signin'){
-            if ( emailError || passwordError) {
+        } else if (location.pathname === '/signin') {
+            if (!email || !password) {
+                setFormValid(false)
+            } else if (passwordError || emailError) {
                 setFormValid(false)
             } else {
                 setFormValid(true)
             }
+
         }
-       
-    }, [nameError, emailError, passwordError])
+
+    }, [name, email, password])
 
     const blurHandler = (e) => {
         // eslint-disable-next-line default-case
@@ -58,7 +63,7 @@ export default function Forms(props) {
             setNameError('Что-то пошло не так...')
         } else {
             setNameError("")
-        }  
+        }
     }
 
     const emailHandler = (e) => {
@@ -99,30 +104,27 @@ export default function Forms(props) {
 
     const handleSubmitRegister = (e) => {
         e.preventDefault();
-        let isData = {}
-        if (password&&email&&password) {
+        if (password && email && password) {
             mainApi.register(email, password, name)
                 .then((data) => {
-                    isData = data
-                })
-             .catch((e) => setErrors(`Произошла ошибка`))
-        if(isData){
-            setTimeout(()=>{
-                mainApi.authorize(password, email)
-                .then((data) => {
-                    if (data.token) {
-                        localStorage.setItem('token', data.token);
-                        setEmail('');
-                        setPassword('');
-                        props.handleLogin();
-                        setErrors('')
-                        navigate('/movies', { replace: true });
+                    if (data) {
+                        mainApi.authorize(password, email)
+                            .then((data) => {
+                                if (data.token) {
+                                    localStorage.setItem('token', data.token);
+                                    setEmail('');
+                                    setPassword('');
+                                    props.handleLogin();
+                                    setErrors('')
+                                    navigate('/movies', { replace: true });
+                                }
+                            })
+                            .catch((e) => setErrors(`Произошла ошибка`));
                     }
+                    navigate('/movies', { replace: true });
                 })
-                .catch((e) => setErrors(`Произошла ошибка`));
-                navigate('/movies', { replace: true });
-            }, 1000)  
-        }  
+                .catch((e) => setErrors(`Произошла ошибка`))
+
         }
     }
 

@@ -6,13 +6,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Preloader from '../Preloader/Preloader'
 import './Movies.css'
 
-export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMovies, movies, handleLikeMovies, checkShorts, myMovies, handleAddMovies, handleDeleteMovies, isAddButton }) {
+export default function Movies({ isAuth, isLoading, errorMessage, handleSearchMovies, movies, handleLikeMovies, checkShorts, myMovies, handleAddMovies, handleDeleteMovies, isAddButton, toggleSearchMovies }) {
 
     return (
         <>
             <Header isAuth={isAuth} />
             <main className='movies'>
-                <SearchForm handleSearchMovies={handleSearchMovies} checkShorts={checkShorts} movies={movies} />
+                <SearchForm handleSearchMovies={handleSearchMovies} checkShorts={checkShorts} movies={movies} toggleSearchMovies={toggleSearchMovies}/>
                 {isLoading && <Preloader />}
                 {errorMessage && <span className="movies__error">{errorMessage}</span>}
                 {movies ? <MoviesCardList

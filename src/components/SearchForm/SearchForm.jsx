@@ -3,50 +3,77 @@ import './SearchForm.css'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import { useLocation } from 'react-router-dom'
 
-export default function SearchForm({ handleSearchMovies, searchMovies }) {
+export default function SearchForm({ handleSearchMovies, searchMovies, toggleSearchMovies }) {
     const [movie, setMovie] = useState('')
+    const [saveMovie, setSaveMovie] = useState('')
     const [checkbox, setCheckbox] = useState(false)
-    const [search, setSearch] = useState('')
+    const [checkboxSave, setCheckboxSave] = useState(false)
+    const [search, setSearch] = useState('Фильм')
 
     const location = useLocation()
 
     const handleChecked = (e) => {
-        setCheckbox(e.target.checked)
         if (location.pathname === '/movies') {
-            handleSearchMovies(checkbox, movie)
-        } else if (location.pathname === '/movies-saved') {
-            searchMovies(checkbox, movie)
+            const check = JSON.parse(localStorage.getItem('isShort'))
+            if(check !== undefined){
+                setCheckbox(!check)
+                localStorage.setItem('isShort', !check)
+                toggleSearchMovies(!check, movie)
+                return
+            }
+            setCheckbox(!checkbox)
+            toggleSearchMovies(checkbox, movie)
+        } else if (location.pathname === '/saved-movies') {
+            const check = JSON.parse(localStorage.getItem('isShortSave'))
+            if(check !== undefined){
+                setCheckboxSave(!check)
+                localStorage.setItem('isShort', check)
+                searchMovies(!check, movie)
+                return
+            }
+            setCheckboxSave(!checkboxSave)
+            searchMovies(checkboxSave, saveMovie)
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (location.pathname === '/movies') {
-            if (!movie) {
+            if (movie === '') {
                 setSearch('Нужно ввести ключевое слово')
             }
             handleSearchMovies(checkbox, movie)
-        } else if (location.pathname === '/movies-saved') {
-            searchMovies(checkbox, movie)
+        } else if (location.pathname === '/saved-movies') {
+            searchMovies(checkboxSave, saveMovie)
+            if (saveMovie === '') {
+                setSearch('Нужно ввести ключевое слово')
+            }
         }
     }
 
     useEffect(() => {
         if (location.pathname === '/movies') {
-            setCheckbox(JSON.parse(localStorage.getItem('isShort')))
-            setSearch(localStorage.getItem('searchText'))
+            setCheckbox((JSON.parse(localStorage.getItem('isShort'))))
+            setMovie(localStorage.getItem('searchText'))
         }
-    }, [movie])
+        setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
+        setSaveMovie(localStorage.getItem('searchSaveText'))
+    }, [location])
 
     return (
         <section className='searchForm'>
             <form className='searchForm__content' onSubmit={handleSubmit}>
                 <div className='searchForm__container'>
-                    <input type="text" placeholder={search ? search : 'Фильм'} className='searchForm__input' value={movie} onChange={e => setMovie(e.target.value)} />
+                    <input type="text"
+                        placeholder={search}
+                        className='searchForm__input'
+                        value={(location.pathname === '/movies') ? movie : saveMovie}
+                        onChange={e => setMovie(e.target.value)}
+                    />
                     <button className='searchForm__button' type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>
-                <FilterCheckbox checkbox={checkbox} handleChecked={handleChecked} />
+                <FilterCheckbox checkbox={checkbox} checkboxSave={checkboxSave} handleChecked={handleChecked} />
             </form>
         </section>
     )

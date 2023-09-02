@@ -16,7 +16,7 @@ export default function MoviesCardList({ movies, myMovies, handleLikeMovies, han
                         myMovies={myMovies}
                         handleLikeMovies={handleLikeMovies}
                         handleDeleteMovies={handleDeleteMovies}
-                    />) : 'Ничего не найдено')
+                    />) : null)
                     :
                     (myMovies.length > 0 ? myMovies.map((card) => <MoviesCard
                         key={card.id ? card.id : card._id}
@@ -24,10 +24,10 @@ export default function MoviesCardList({ movies, myMovies, handleLikeMovies, han
                         movies={myMovies}
                         handleLikeMovies={handleLikeMovies}
                         handleDeleteMovies={handleDeleteMovies}
-                    />) : 'Ничего не найдено')
+                    />) : null)
                 }
             </ul>
-            {location.pathname === '/movies'&& !isAddButton && <div className='moviesCardList__add'>
+            {location.pathname === '/movies'&& !isAddButton && movies.length > 0 && <div className='moviesCardList__add'>
                 <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button>
             </div>}
 

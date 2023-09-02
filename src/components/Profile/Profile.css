@@ -133,6 +133,8 @@
 
 .profile__button:disabled {
     opacity: 0.2;
+    color: #464444;
+    cursor:default;
 }
 
 .profile__signOut {
