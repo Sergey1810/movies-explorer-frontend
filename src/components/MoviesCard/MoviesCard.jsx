@@ -36,7 +36,7 @@ export default function MoviesCard({ card, myMovies, handleLikeMovies, handleDel
                 </a>
                 <div className='moviesCard__content'>
                     <h2 className='moviesCard__title'>{card.nameRU}</h2>
-                    <button className={`moviesCard__likes ${(location.pathname === '/saved-movies') ? 'moviesCard__likes_remove' : null} ${isSaved ? 'moviesCard__likes_active' : null}`}
+                    <button className={` ${(location.pathname === '/saved-movies') ? 'moviesCard__remove' : 'moviesCard__likes'} ${isSaved ? 'moviesCard__likes_active' : null}`}
                         type='button'
                         onClick={(location.pathname === '/movies' && !isSaved) ? handleClick : handleDelete}></button>
                 </div>

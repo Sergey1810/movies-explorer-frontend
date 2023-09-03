@@ -44,11 +44,17 @@
     transition: opacity 0.3s linear;
 }
 
-.moviesCard__likes_remove{
+.moviesCard__remove{
+    all: unset;
+    background-image: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s linear;
     background-image:none
 }
 
-.moviesCard__likes_remove:hover{
+.moviesCard:hover .moviesCard__remove{
     background-image: url('../../images/deleteMovies.svg');
 }
 
@@ -101,10 +107,13 @@
     }
   }  
 
-  @media screen and (max-width:360px){
+  @media screen and (max-width:680px){
     .moviesCard {
         max-width: 300px;
         width: 100%;
+    }
+    .moviesCard__remove{
+        background-image: url('../../images/deleteMovies.svg');
     }
     .moviesCard__image{
         max-width: 300px;

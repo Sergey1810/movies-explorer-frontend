@@ -3,7 +3,7 @@ import './SearchForm.css'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import { useLocation } from 'react-router-dom'
 
-export default function SearchForm({ handleSearchMovies, searchMovies, toggleSearchMovies }) {
+export default function SearchForm({ handleSearchMovies, searchMovies, toggleSearchMovies, toggleSaveSearchMovies }) {
     const [movie, setMovie] = useState('')
     const [saveMovie, setSaveMovie] = useState('')
     const [checkbox, setCheckbox] = useState(false)
@@ -15,7 +15,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
     const handleChecked = (e) => {
         if (location.pathname === '/movies') {
             const check = JSON.parse(localStorage.getItem('isShort'))
-            if(check !== undefined){
+            if (check !== undefined) {
                 setCheckbox(!check)
                 localStorage.setItem('isShort', !check)
                 toggleSearchMovies(!check, movie)
@@ -24,15 +24,15 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
             setCheckbox(!checkbox)
             toggleSearchMovies(checkbox, movie)
         } else if (location.pathname === '/saved-movies') {
-            const check = JSON.parse(localStorage.getItem('isShortSave'))
-            if(check !== undefined){
-                setCheckboxSave(!check)
-                localStorage.setItem('isShort', check)
-                searchMovies(!check, movie)
+            const checks = JSON.parse(localStorage.getItem('isShortSave'))
+            if (checks !== undefined) {
+                setCheckboxSave(!checks)
+                localStorage.setItem('isShortSave', checks)
+                toggleSaveSearchMovies(!checks, movie)
                 return
             }
             setCheckboxSave(!checkboxSave)
-            searchMovies(checkboxSave, saveMovie)
+            toggleSaveSearchMovies(checkboxSave, saveMovie)
         }
     }
 
@@ -55,9 +55,10 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
         if (location.pathname === '/movies') {
             setCheckbox((JSON.parse(localStorage.getItem('isShort'))))
             setMovie(localStorage.getItem('searchText'))
+        }else {
+            setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
+            setSaveMovie(localStorage.getItem('searchSaveText'))
         }
-        setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
-        setSaveMovie(localStorage.getItem('searchSaveText'))
     }, [location])
 
     return (
@@ -68,7 +69,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         placeholder={search}
                         className='searchForm__input'
                         value={(location.pathname === '/movies') ? movie : saveMovie}
-                        onChange={e => setMovie(e.target.value)}
+                        onChange={(location.pathname === '/movies') ? e => setMovie(e.target.value) : e => setSaveMovie(e.target.value)}
                     />
                     <button className='searchForm__button' type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>

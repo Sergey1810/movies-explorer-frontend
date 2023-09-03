@@ -73,7 +73,7 @@
     }
 }
 
-@media screen and (max-width:680px) {
+@media screen and (max-width:480px) {
     .moviesCardList__list {
         max-width: 339px;
         grid-template-columns: repeat(1, 1fr);
