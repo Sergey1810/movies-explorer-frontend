@@ -57,20 +57,20 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
     useEffect(()=>{
         if (location.pathname === '/movies') {
             if (movie === '') {
-                setSearch('Нужно ввести ключевое слово')
+                setSearch('Фильм')
                 setDisabled(false)
             } else {
                setDisabled(true)
             }
         } else if (location.pathname === '/saved-movies') {
             if (saveMovie === '') {
-                setSearch('Нужно ввести ключевое слово')
+                setSearch('Фильм')
                 setDisabled(false)
             } else {
                 setDisabled(true)
             }
         }
-    },[movie, saveMovie])
+    },[])
 
     useEffect(() => {
         if (location.pathname === '/movies') {
@@ -90,7 +90,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         placeholder={search}
                         className='searchForm__input'
                         value={(location.pathname === '/movies') ? movie : saveMovie}
-                        onChange={(location.pathname === '/movies') ? e => setMovie(e.target.value) : e => setSaveMovie(e.target.value)}
+                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value); setDisabled(true)} : e => {setSaveMovie(e.target.value); setDisabled(true)}}
                     />
                     <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
