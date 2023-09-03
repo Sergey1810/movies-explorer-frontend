@@ -39,7 +39,13 @@ export default function Forms(props) {
 
         }
 
-    }, [name, email, password])
+    }, [name, email, password, location,navigate])
+
+    useEffect(()=>{
+     setEmailError('')
+     setNameError('')
+     setPasswordError('')
+    },[location,navigate])
 
     const blurHandler = (e) => {
         // eslint-disable-next-line default-case
@@ -102,29 +108,29 @@ export default function Forms(props) {
             .catch((e) => setErrors(`Произошла ошибка`));
     }
 
+
+
     const handleSubmitRegister = (e) => {
         e.preventDefault();
         if (password && email && password) {
-            mainApi.register(email, password, name)
-                .then((data) => {
-                    if (data) {
-                        mainApi.authorize(password, email)
-                            .then((data) => {
-                                if (data.token) {
-                                    localStorage.setItem('token', data.token);
-                                    setEmail('');
-                                    setPassword('');
-                                    props.handleLogin();
-                                    setErrors('')
-                                    navigate('/movies', { replace: true });
-                                }
-                            })
-                            .catch((e) => setErrors(`Произошла ошибка`));
-                    }
-                    navigate('/movies', { replace: true });
-                })
-                .catch((e) => setErrors(`Произошла ошибка`))
-
+            props.onRegister( email, password, name )
+            // mainApi.register(email, password, name)
+            //     .then((data) => {
+            //         if (data) {
+            //             mainApi.authorize(password, email)
+            //                 .then((data) => {
+            //                     if (data.token) {
+            //                         localStorage.setItem('token', data.token);
+            //                         props.handleLogin();
+            //                         navigate('/movies', { replace: true });
+            //                     }
+            //                 })
+            //                 .catch((e) => setErrors(`Произошла ошибка`));
+            //         }
+            //         navigate('/movies', { replace: true });
+                    
+            //     })
+            //     .catch((e) => setErrors(`Произошла ошибка`))
         }
     }
 

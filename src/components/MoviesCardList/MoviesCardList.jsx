@@ -4,7 +4,11 @@ import './MoviesCardList.css'
 import { useLocation } from 'react-router-dom'
 
 export default function MoviesCardList({ movies, myMovies, handleLikeMovies, handleDeleteMovies, handleAddMovies, isAddButton }) {
-    const location = useLocation()
+    const location = useLocation() 
+
+    const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
+
+
 
     return (
         <section className='moviesCardList'>
@@ -16,7 +20,7 @@ export default function MoviesCardList({ movies, myMovies, handleLikeMovies, han
                         myMovies={myMovies}
                         handleLikeMovies={handleLikeMovies}
                         handleDeleteMovies={handleDeleteMovies}
-                    />) : null)
+                    />): null )
                     :
                     (myMovies.length > 0 ? myMovies.map((card) => <MoviesCard
                         key={card.id ? card.id : card._id}
@@ -24,11 +28,11 @@ export default function MoviesCardList({ movies, myMovies, handleLikeMovies, han
                         movies={myMovies}
                         handleLikeMovies={handleLikeMovies}
                         handleDeleteMovies={handleDeleteMovies}
-                    />) : null)
+                    />): null)
                 }
             </ul>
-            {location.pathname === '/movies'&& !isAddButton && movies.length > 0 && <div className='moviesCardList__add'>
-                <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button>
+            {location.pathname === '/movies'&& !isAddButton && <div className='moviesCardList__add'>
+               {movies.length < moviesLocalStorage ? <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button> : ''}
             </div>}
 
         </section>

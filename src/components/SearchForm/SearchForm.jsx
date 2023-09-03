@@ -9,6 +9,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
     const [checkbox, setCheckbox] = useState(false)
     const [checkboxSave, setCheckboxSave] = useState(false)
     const [search, setSearch] = useState('Фильм')
+    const [isDisabled, setDisabled] = useState(false)
 
     const location = useLocation()
 
@@ -41,23 +42,43 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
         if (location.pathname === '/movies') {
             if (movie === '') {
                 setSearch('Нужно ввести ключевое слово')
+            } else {
+                handleSearchMovies(checkbox, movie)
             }
-            handleSearchMovies(checkbox, movie)
         } else if (location.pathname === '/saved-movies') {
-            searchMovies(checkboxSave, saveMovie)
             if (saveMovie === '') {
                 setSearch('Нужно ввести ключевое слово')
+            } else {
+                searchMovies(checkboxSave, saveMovie)
             }
         }
     }
+
+    useEffect(()=>{
+        if (location.pathname === '/movies') {
+            if (movie === '') {
+                setSearch('Нужно ввести ключевое слово')
+                setDisabled(false)
+            } else {
+               setDisabled(true)
+            }
+        } else if (location.pathname === '/saved-movies') {
+            if (saveMovie === '') {
+                setSearch('Нужно ввести ключевое слово')
+                setDisabled(false)
+            } else {
+                setDisabled(true)
+            }
+        }
+    },[movie, saveMovie])
 
     useEffect(() => {
         if (location.pathname === '/movies') {
             setCheckbox((JSON.parse(localStorage.getItem('isShort'))))
             setMovie(localStorage.getItem('searchText'))
-        }else {
-            setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
-            setSaveMovie(localStorage.getItem('searchSaveText'))
+        } else {
+            // setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
+            // setSaveMovie(localStorage.getItem('searchSaveText'))
         }
     }, [location])
 
@@ -71,7 +92,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         value={(location.pathname === '/movies') ? movie : saveMovie}
                         onChange={(location.pathname === '/movies') ? e => setMovie(e.target.value) : e => setSaveMovie(e.target.value)}
                     />
-                    <button className='searchForm__button' type='submit'>Найти</button>
+                    <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>
                 <FilterCheckbox checkbox={checkbox} checkboxSave={checkboxSave} handleChecked={handleChecked} />

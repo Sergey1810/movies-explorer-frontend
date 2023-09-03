@@ -48,9 +48,28 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-  }, [navigate])
+  }, [navigate, location])
 
 
+  const onRegister =(email, password, name )=>{
+    mainApi.register(email, password, name)
+    .then((data) => {
+        if (data) {
+            mainApi.authorize(password, email)
+                .then((data) => {
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
+                        handleLogin();
+                        navigate('/movies', { replace: true });
+                    }
+                })
+                .catch((e) => console.log(`Произошла ошибка`));
+        }
+        navigate('/movies', { replace: true });
+        
+    })
+    .catch((e) => console.log(`Произошла ошибка`))
+  }
 
   const handleSubmitUpdateUsers = (name, email) => {
     mainApi.setUserInfo(name, email).then((data) => {
@@ -104,7 +123,10 @@ function App() {
 
   const handleResizeSaved = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('saveMovies'))
-    if (moviesLocalStorage === null) {
+    if (moviesLocalStorage === undefined) {
+      return
+    }else if (moviesLocalStorage === null) {
+      setMySavedMovies(moviesLocalStorage)
       return
     } else if (width > 1160) {
       setMySavedMovies(moviesLocalStorage)
@@ -120,7 +142,10 @@ function App() {
 
   const isAddButtons = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
-    if (width > 1160 && moviesLocalStorage.length <= 16) {
+    if (moviesLocalStorage === null) {
+      setMySavedMovies(moviesLocalStorage)
+      return
+    } else if (width > 1160 && moviesLocalStorage.length <= 16) {
       setIsAddButton(true)
     } else if (width > 890 && width < 1160 && moviesLocalStorage.length <= 12) {
       setIsAddButton(true)
@@ -128,7 +153,7 @@ function App() {
       setIsAddButton(true)
     } else if (width <= 480 && moviesLocalStorage.length <= 4) {
       setIsAddButton(true)
-    } else if (moviesLocalStorage.length === movies.length) {
+    } else if (moviesLocalStorage.length <= movies.length) {
       setIsAddButton(true)
     } else {
       setIsAddButton(false)
@@ -145,6 +170,7 @@ function App() {
   }
 
   useEffect(() => {
+    handleTokenCheck();
     mainApi.getUserInfo().then((users) => {
       setCurrentUser(users)
     })
@@ -152,6 +178,7 @@ function App() {
   }, [navigate])
 
   useEffect(() => {
+    handleTokenCheck();
     mainApi.getMyMovies().then((movies) => {
       setMySavedMovies(movies)
       setMyMovies(movies)
@@ -167,7 +194,7 @@ function App() {
         const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
         if (searchMovies.length === 0) {
           setIsLoading(false)
-          setErrorMessage('Ничего не найдено')
+          setErrorMessage('Ничего не найденоse')
           handleResize()
           localStorage.setItem('searchText', movieName)
           localStorage.setItem('isShort', isShorts)
@@ -178,7 +205,7 @@ function App() {
         if (isShorts) {
           const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
           if (shortsMovies.length === 0) {
-            setErrorMessage('Ничего не найдено')
+            setErrorMessage('Ничего не найденоs')
             setIsLoading(false)
             localStorage.setItem('isShort', isShorts)
             localStorage.setItem('searchText', movieName)
@@ -190,6 +217,7 @@ function App() {
           localStorage.setItem('isShort', isShorts)
           handleResize()
           setIsLoading(false)
+          return
         }
         localStorage.setItem('movies', JSON.stringify(searchMovies))
         localStorage.setItem('moviesShorts', JSON.stringify(searchMovies))
@@ -197,8 +225,9 @@ function App() {
         localStorage.setItem('isShort', isShorts)
         handleResize()
         setIsLoading(false)
+        return
       })
-      .catch(e => {
+      .catch((e) => {
         setIsLoading(false)
         if (e) {
           localStorage.removeItem('movies')
@@ -210,32 +239,35 @@ function App() {
   const toggleSearchMovies = (isShorts, movieName) => {
     setErrorMessage('')
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
-    if (isShorts) {
-      const shortsMovies = moviesLocalStorage.filter((movie) => movie.duration <= 40)
-      if (shortsMovies.length === 0) {
-        setErrorMessage('Ничего не найдено')
+    if (moviesLocalStorage) {
+      if (isShorts) {
+        const shortsMovies = moviesLocalStorage.filter((movie) => movie.duration <= 40)
+        if (shortsMovies.length === 0) {
+          setErrorMessage('Ничего не найденоt')
+          localStorage.setItem('movies', JSON.stringify(shortsMovies))
+          localStorage.setItem('isShort', isShorts)
+          localStorage.setItem('searchText', movieName)
+          handleResize()
+          isAddButtons()
+          return
+        }
         localStorage.setItem('movies', JSON.stringify(shortsMovies))
-        localStorage.setItem('isShort', isShorts)
         localStorage.setItem('searchText', movieName)
+        localStorage.setItem('isShort', isShorts)
         handleResize()
         isAddButtons()
         return
+      } else if (!isShorts) {
+        const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesShorts'))
+        localStorage.setItem('movies', JSON.stringify(moviesLocalStorageShorts))
+        localStorage.setItem('searchText', movieName)
+        localStorage.setItem('isShort', isShorts)
+        isAddButtons()
       }
-      localStorage.setItem('movies', JSON.stringify(shortsMovies))
-      localStorage.setItem('searchText', movieName)
-      localStorage.setItem('isShort', isShorts)
       handleResize()
       isAddButtons()
-      return
-    } else if (!isShorts) {
-      const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesShorts'))
-      localStorage.setItem('movies', JSON.stringify(moviesLocalStorageShorts))
-      localStorage.setItem('searchText', movieName)
-      localStorage.setItem('isShort', isShorts)
-      isAddButtons()
+    // } else {setErrorMessage('Ничего не найдено')}
     }
-    handleResize()
-    isAddButtons()
   }
 
   const searchMovies = (isShorts, movieName) => {
@@ -243,7 +275,7 @@ function App() {
     setSaveErrorMessage('')
     const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
     if (searchMovies.length === 0) {
-      setSaveErrorMessage('Ничего не найдено')
+      setSaveErrorMessage('Ничего не найденоm')
       setIsLoading(false)
       localStorage.setItem('searchSaveText', movieName)
       localStorage.setItem('isShortSave', isShorts)
@@ -256,7 +288,7 @@ function App() {
       const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
       if (shortsMovies.length === 0) {
         setIsLoading(false)
-        setSaveErrorMessage('Ничего не найдено')
+        setSaveErrorMessage('Ничего не найденоn')
         handleResizeSaved()
         localStorage.setItem('saveMovies', null)
         localStorage.setItem('searchSaveText', movieName)
@@ -279,33 +311,35 @@ function App() {
     setIsLoading(false)
     handleResizeSaved()
   }
+    
 
   const toggleSaveSearchMovies = (isShorts, movieName) => {
     setSaveErrorMessage('')
-    const moviesLocalStorage = JSON.parse(localStorage.getItem('saveMovies'))
-    if (isShorts) {
-      const shortsMovies = moviesLocalStorage.filter((movie) => movie.duration <= 40)
-      if (shortsMovies.length === 0) {
-        setSaveErrorMessage('Ничего не найдено')
+    if (mySavedMovies) {
+      if (isShorts) {
+        const shortsMovies = mySavedMovies.filter((movie) => movie.duration <= 40)
+        if (shortsMovies.length === 0) {
+          setSaveErrorMessage('Ничего не найденоb')
+          localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
+          localStorage.setItem('isShortSave', isShorts)
+          localStorage.setItem('searchSaveText', movieName)
+          handleResizeSaved()
+          return
+        }
         localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
-        localStorage.setItem('isShortSave', isShorts)
         localStorage.setItem('searchSaveText', movieName)
+        localStorage.setItem('isShortSave', isShorts)
         handleResizeSaved()
         return
+      } else if (!isShorts) {
+        const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesSaveShorts'))
+        localStorage.setItem('saveMovies', JSON.stringify(myMovies))
+        localStorage.setItem('searchSaveText', movieName)
+        localStorage.setItem('isShortSave', isShorts)
+        handleResizeSaved()
       }
-      localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
-      localStorage.setItem('searchSaveText', movieName)
-      localStorage.setItem('isShortSave', isShorts)
       handleResizeSaved()
-      return
-    } else if (!isShorts) {
-      const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesSaveShorts'))
-      localStorage.setItem('saveMovies', JSON.stringify(moviesLocalStorageShorts))
-      localStorage.setItem('searchSaveText', movieName)
-      localStorage.setItem('isShortSave', isShorts)
-      handleResizeSaved()
-    }
-    handleResizeSaved()
+    }else {setSaveErrorMessage('Ничего не найденоv')} 
   }
 
   useEffect(() => {
@@ -341,7 +375,8 @@ function App() {
   const handleDeleteMovies = (id) => {
     mainApi.setDeleteMovies(id)
       .then((data) => {
-        setMyMovies(myMovies.filter(item => item._id !== id))
+        setMySavedMovies(myMovies.filter(item => item._id !== id))
+       // localStorage.setItem('saveMovies', JSON.stringify(myMovies))
       })
       .catch((e) => {
         console.log(e.message)
@@ -411,7 +446,7 @@ function App() {
               handleSubmitUpdateUsers={handleSubmitUpdateUsers}
             />} />
           <Route path='/signin' element={<Login handleLogin={handleLogin} />} />
-          <Route path='/signup' element={<Register />} />
+          <Route path='/signup' element={<Register handleLogin={handleLogin} onRegister={onRegister}/>} />
           <Route path='*' element={<Errors />} />
         </Routes>
       </div>
