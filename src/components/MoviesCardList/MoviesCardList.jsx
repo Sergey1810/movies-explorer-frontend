@@ -32,7 +32,7 @@ export default function MoviesCardList({ movies, myMovies, handleLikeMovies, han
                 }
             </ul>
             {location.pathname === '/movies'&& !isAddButton && <div className='moviesCardList__add'>
-               {movies.length < moviesLocalStorage ? <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button> : ''}
+               {((movies?movies.length:[]) < (moviesLocalStorage?moviesLocalStorage.length:[])) ? <button className='moviesCardList__button' type='button' onClick={handleAddMovies}>Ещё</button> : ''}
             </div>}
 
         </section>

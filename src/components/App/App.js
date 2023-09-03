@@ -89,7 +89,7 @@ function App() {
     if (isAuth) {
       handleResize()
       handleResizeSaved()
-
+      
       if (location.pathname === '/movie') {
         isAddButtons()
       }
@@ -97,7 +97,7 @@ function App() {
     return () => {
       window.removeEventListener('resize', resize);
     };
-  }, [width, navigate, location, isAddButton, isLoading, saveErrorMessage]);
+  }, [width, navigate, location, isAddButton, isLoading, errorMessage, saveErrorMessage]);
 
 
   const handleResize = () => {
@@ -116,7 +116,7 @@ function App() {
     } else if (width <= 480) {
       setMovies(moviesLocalStorage.slice(0, 5))
       setAddMovies(2)
-    }
+    } 
     isAddButtons()
     return
   }
@@ -137,6 +137,7 @@ function App() {
     } else if (width <= 680) {
       setMySavedMovies(moviesLocalStorage)
     }
+    
     return
   }
 
@@ -177,13 +178,20 @@ function App() {
       .catch((e) => console.log(e))
   }, [navigate])
 
+const getMyMovies =()=>{
+  mainApi.getMyMovies().then((movies) => {
+    setMySavedMovies(movies)
+    setMyMovies(movies)
+    
+  })
+    .catch((e) => console.log(e))
+    setSaveErrorMessage('')
+
+}
+
   useEffect(() => {
     handleTokenCheck();
-    mainApi.getMyMovies().then((movies) => {
-      setMySavedMovies(movies)
-      setMyMovies(movies)
-    })
-      .catch((e) => console.log(e))
+    getMyMovies()
   }, [navigate])
 
   const handleSearchMovies = (isShorts, movieName) => {
@@ -194,7 +202,7 @@ function App() {
         const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
         if (searchMovies.length === 0) {
           setIsLoading(false)
-          setErrorMessage('Ничего не найденоse')
+          setErrorMessage('Ничего не найдено')
           handleResize()
           localStorage.setItem('searchText', movieName)
           localStorage.setItem('isShort', isShorts)
@@ -205,7 +213,7 @@ function App() {
         if (isShorts) {
           const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
           if (shortsMovies.length === 0) {
-            setErrorMessage('Ничего не найденоs')
+            setErrorMessage('Ничего не найдено')
             setIsLoading(false)
             localStorage.setItem('isShort', isShorts)
             localStorage.setItem('searchText', movieName)
@@ -234,6 +242,8 @@ function App() {
           setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
         }
       })
+      setIsLoading(false)
+      handleResize()
   }
 
   const toggleSearchMovies = (isShorts, movieName) => {
@@ -243,7 +253,7 @@ function App() {
       if (isShorts) {
         const shortsMovies = moviesLocalStorage.filter((movie) => movie.duration <= 40)
         if (shortsMovies.length === 0) {
-          setErrorMessage('Ничего не найденоt')
+          setErrorMessage('Ничего не найдено')
           localStorage.setItem('movies', JSON.stringify(shortsMovies))
           localStorage.setItem('isShort', isShorts)
           localStorage.setItem('searchText', movieName)
@@ -266,8 +276,8 @@ function App() {
       }
       handleResize()
       isAddButtons()
-    // } else {setErrorMessage('Ничего не найдено')}
-    }
+     } else {setErrorMessage('Ничего не найдено')}
+    
   }
 
   const searchMovies = (isShorts, movieName) => {
@@ -275,7 +285,7 @@ function App() {
     setSaveErrorMessage('')
     const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
     if (searchMovies.length === 0) {
-      setSaveErrorMessage('Ничего не найденоm')
+      setSaveErrorMessage('Ничего не найдено')
       setIsLoading(false)
       localStorage.setItem('searchSaveText', movieName)
       localStorage.setItem('isShortSave', isShorts)
@@ -288,7 +298,7 @@ function App() {
       const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
       if (shortsMovies.length === 0) {
         setIsLoading(false)
-        setSaveErrorMessage('Ничего не найденоn')
+        setSaveErrorMessage('Ничего не найдено')
         handleResizeSaved()
         localStorage.setItem('saveMovies', null)
         localStorage.setItem('searchSaveText', movieName)
@@ -319,7 +329,7 @@ function App() {
       if (isShorts) {
         const shortsMovies = mySavedMovies.filter((movie) => movie.duration <= 40)
         if (shortsMovies.length === 0) {
-          setSaveErrorMessage('Ничего не найденоb')
+          setSaveErrorMessage('Ничего не найдено')
           localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
           localStorage.setItem('isShortSave', isShorts)
           localStorage.setItem('searchSaveText', movieName)
@@ -339,7 +349,14 @@ function App() {
         handleResizeSaved()
       }
       handleResizeSaved()
-    }else {setSaveErrorMessage('Ничего не найденоv')} 
+    } else {
+          localStorage.setItem('saveMovies', null)
+          localStorage.setItem('isShortSave', isShorts)
+          localStorage.setItem('searchSaveText', movieName)
+          handleResizeSaved()
+      setSaveErrorMessage('Ничего не найдено')
+    } 
+    handleResizeSaved()
   }
 
   useEffect(() => {
@@ -376,11 +393,13 @@ function App() {
     mainApi.setDeleteMovies(id)
       .then((data) => {
         setMySavedMovies(myMovies.filter(item => item._id !== id))
-       // localStorage.setItem('saveMovies', JSON.stringify(myMovies))
+        getMyMovies()
+        localStorage.setItem('saveMovies', JSON.stringify(mySavedMovies)) 
       })
       .catch((e) => {
         console.log(e.message)
       })
+      handleResizeSaved()
   }
 
   const handleLogin = () => {
@@ -445,8 +464,8 @@ function App() {
               infoMessage={infoMessage}
               handleSubmitUpdateUsers={handleSubmitUpdateUsers}
             />} />
-          <Route path='/signin' element={<Login handleLogin={handleLogin} />} />
-          <Route path='/signup' element={<Register handleLogin={handleLogin} onRegister={onRegister}/>} />
+         {isAuth?<Route path='/' element={<Main isAuth={isAuth} />} />:<Route path='/signin' element={<Login handleLogin={handleLogin} />} />} 
+         {isAuth?<Route path='/' element={<Main isAuth={isAuth} />} />:<Route path='/signup' element={<Register handleLogin={handleLogin} onRegister={onRegister}/>} />} 
           <Route path='*' element={<Errors />} />
         </Routes>
       </div>

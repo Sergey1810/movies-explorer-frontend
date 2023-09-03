@@ -114,23 +114,6 @@ export default function Forms(props) {
         e.preventDefault();
         if (password && email && password) {
             props.onRegister( email, password, name )
-            // mainApi.register(email, password, name)
-            //     .then((data) => {
-            //         if (data) {
-            //             mainApi.authorize(password, email)
-            //                 .then((data) => {
-            //                     if (data.token) {
-            //                         localStorage.setItem('token', data.token);
-            //                         props.handleLogin();
-            //                         navigate('/movies', { replace: true });
-            //                     }
-            //                 })
-            //                 .catch((e) => setErrors(`Произошла ошибка`));
-            //         }
-            //         navigate('/movies', { replace: true });
-                    
-            //     })
-            //     .catch((e) => setErrors(`Произошла ошибка`))
         }
     }
 
