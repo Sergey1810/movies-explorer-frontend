@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 export default function MoviesCardList({ movies, myMovies, handleLikeMovies, handleDeleteMovies, handleAddMovies, isAddButton }) {
     const location = useLocation() 
 
-    const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
+    let moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
 
 
 

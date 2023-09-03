@@ -154,8 +154,8 @@ function App() {
       setIsAddButton(true)
     } else if (width <= 480 && moviesLocalStorage.length <= 4) {
       setIsAddButton(true)
-    } else if (moviesLocalStorage.length <= movies.length) {
-      setIsAddButton(true)
+    // } else if (moviesLocalStorage.length <= movies.length) {
+    //   setIsAddButton(true)
     } else {
       setIsAddButton(false)
     }
@@ -199,7 +199,7 @@ function App() {
     setErrorMessage('')
     moviesApi.getAllMovies()
       .then((movies) => {
-        let searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+        const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
         if (searchMovies.length === 0 || searchMovies === null) {
           setIsLoading(false)
           setErrorMessage('Ничего не найдено')
@@ -226,24 +226,22 @@ function App() {
           handleResize()
           setIsLoading(false)
           return
-        }else{
+        } else {
           localStorage.setItem('movies', JSON.stringify(searchMovies))
-        localStorage.setItem('moviesShorts', JSON.stringify(searchMovies))
-        localStorage.setItem('searchText', movieName)
-        localStorage.setItem('isShort', isShorts)
-        handleResize()
-        setIsLoading(false)
-        return
+          localStorage.setItem('moviesShorts', JSON.stringify(searchMovies))
+          localStorage.setItem('searchText', movieName)
+          localStorage.setItem('isShort', isShorts)
+          handleResize()
+          setIsLoading(false)
+          return
         }
-        
+
       })
       .catch((e) => {
         setIsLoading(false)
-        if (e) {
-          console.log(e)
-          localStorage.setItem('movies', null)
-          setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
-        }
+        console.log(e.message)
+        // localStorage.setItem('movies', JSON.stringify(searchMovies))
+        setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
       })
     setIsLoading(false)
     handleResize()
