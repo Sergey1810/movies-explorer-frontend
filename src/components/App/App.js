@@ -252,7 +252,6 @@ function App() {
       handleResizeSaved()
       return
     }
-
     if (isShorts) {
       const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
       if (shortsMovies.length === 0) {
