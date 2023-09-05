@@ -27,7 +27,6 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
         } else if (location.pathname === '/saved-movies') {
             setCheckboxSave(!checkboxSave)
             toggleSaveSearchMovies(!checkboxSave, saveMovie)
-            console.log(!checkboxSave)
         }
     }
 
@@ -48,32 +47,29 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
         }
     }
 
-    // useEffect(()=>{
-    //     if (location.pathname === '/movies') {
-    //         if (movie === '') {
-    //             setSearch('Фильм')
-    //             setDisabled(false)
-    //         } else {
-    //            setDisabled(true)
-    //         }
-    //     } else if (location.pathname === '/saved-movies') {
-    //         if (saveMovie === '') {
-    //             setSearch('Фильм')
-    //             setDisabled(false)
-    //         } else {
-    //             setDisabled(true)
-    //         }
-    //     }
-    // },[])
+    useEffect(()=>{
+        if (location.pathname === '/movies') {
+            if (movie === '') {
+                setSearch('Фильм')
+                setDisabled(false)
+            } else {
+               setDisabled(true)
+            }
+        } else if (location.pathname === '/saved-movies') {
+            if (saveMovie === '') {
+                setSearch('Фильм')
+                setDisabled(false)
+            } else {
+                setDisabled(true)
+            }
+        }
+    },[])
 
     useEffect(() => {
         if (location.pathname === '/movies') {
             setCheckbox((JSON.parse(localStorage.getItem('isShort'))))
             setMovie(localStorage.getItem('searchText'))
-        } else {
-            // setCheckboxSave((JSON.parse(localStorage.getItem('isShortSave'))))
-            // setSaveMovie(localStorage.getItem('searchSaveText'))
-        }
+        } 
     }, [location])
 
     return (
@@ -84,9 +80,9 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         placeholder={search}
                         className='searchForm__input'
                         value={(location.pathname === '/movies') ? movie : saveMovie}
-                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value)} : e => {setSaveMovie(e.target.value)}}
+                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value); setDisabled(true)} : e => {setSaveMovie(e.target.value); setDisabled(true)}}
                     />
-                    <button className='searchForm__button' type='submit'>Найти</button>
+                    <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>
                 <FilterCheckbox checkbox={checkbox} checkboxSave={checkboxSave} handleChecked={handleChecked} />

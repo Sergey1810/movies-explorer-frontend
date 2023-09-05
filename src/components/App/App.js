@@ -133,8 +133,6 @@ function App() {
       setIsAddButton(true)
     } else if (width <= 480 && moviesLocalStorage.length <= 4) {
       setIsAddButton(true)
-      // } else if (moviesLocalStorage.length <= movies.length) {
-      //   setIsAddButton(true)
     } else {
       setIsAddButton(false)
     }
@@ -165,7 +163,6 @@ function App() {
     })
       .catch((e) => console.log(e))
     setSaveErrorMessage('')
-
   }
 
   useEffect(() => {
@@ -346,7 +343,6 @@ function App() {
       .catch((e) => {
         console.log(e.message)
       })
-    // handleResizeSaved()
   }
 
   const handleLogin = () => {
