@@ -48,7 +48,7 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-  }, [navigate, location])
+  }, [navigate])
 
 
   const onRegister = (email, password, name) => {
@@ -88,7 +88,6 @@ function App() {
     window.addEventListener('resize', resize);
     if (isAuth) {
       handleResize()
-      handleResizeSaved()
       if (location.pathname === '/movie') {
         isAddButtons()
       }
@@ -96,7 +95,7 @@ function App() {
     return () => {
       window.removeEventListener('resize', resize);
     };
-  }, [width, navigate, location, isAddButton, isLoading, errorMessage, saveErrorMessage]);
+  }, [width, navigate, location, isAddButton, isLoading, errorMessage]);
 
 
   const handleResize = () => {
@@ -121,26 +120,6 @@ function App() {
     return
   }
 
-  const handleResizeSaved = () => {
-    const moviesLocalStorage = JSON.parse(localStorage.getItem('saveMovies'))
-    if (moviesLocalStorage === undefined) {
-      return
-    } else if (moviesLocalStorage === null) {
-      setMySavedMovies(moviesLocalStorage)
-      return
-    } else if (width > 1160) {
-      setMySavedMovies(moviesLocalStorage)
-    } else if (width > 890 && width < 1160) {
-      setMySavedMovies(moviesLocalStorage)
-    } else if (width > 680 && width < 890) {
-      setMySavedMovies(moviesLocalStorage)
-    } else if (width <= 680) {
-      setMySavedMovies(moviesLocalStorage)
-    }
-
-    return
-  }
-
   const isAddButtons = () => {
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
     if (moviesLocalStorage === null) {
@@ -154,8 +133,8 @@ function App() {
       setIsAddButton(true)
     } else if (width <= 480 && moviesLocalStorage.length <= 4) {
       setIsAddButton(true)
-    // } else if (moviesLocalStorage.length <= movies.length) {
-    //   setIsAddButton(true)
+      // } else if (moviesLocalStorage.length <= movies.length) {
+      //   setIsAddButton(true)
     } else {
       setIsAddButton(false)
     }
@@ -199,34 +178,39 @@ function App() {
     setErrorMessage('')
     moviesApi.getAllMovies()
       .then((movies) => {
-        const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-        if (searchMovies.length === 0 || searchMovies === null) {
-          setIsLoading(false)
-          setErrorMessage('Ничего не найдено')
-          localStorage.setItem('searchText', movieName)
-          localStorage.setItem('isShort', isShorts)
-          localStorage.setItem('movies', null)
-          localStorage.setItem('moviesShorts', null)
-          handleResize()
-          return
-        } else if (isShorts) {
-          const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
-          if (shortsMovies.length === 0 || shortsMovies === null) {
-            setErrorMessage('Ничего не найдено')
+        if (!movies) {
+          setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+        } else if (movies) {
+          localStorage.setItem('moviesShorts', JSON.stringify(movies))
+          const searchMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+          if (searchMovies.length === 0 || searchMovies === null) {
             setIsLoading(false)
+            setErrorMessage('Ничего не найдено')
             localStorage.setItem('movies', null)
-            localStorage.setItem('isShort', isShorts)
+            localStorage.setItem('moviesShorts', null)
             localStorage.setItem('searchText', movieName)
+            localStorage.setItem('isShort', isShorts)
             handleResize()
+            setIsLoading(false)
             return
+          } else if (isShorts) {
+            const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
+            if (shortsMovies.length === 0 || shortsMovies === null) {
+              setIsLoading(false)
+              setErrorMessage('Ничего не найдено')
+              localStorage.setItem('movies', null)
+              handleResize()
+              setIsLoading(false)
+              return
+            } else {
+              localStorage.setItem('movies', JSON.stringify(shortsMovies))
+              localStorage.setItem('searchText', movieName)
+              localStorage.setItem('isShort', isShorts)
+              handleResize()
+              setIsLoading(false)
+              return
+            }
           }
-          localStorage.setItem('movies', JSON.stringify(shortsMovies))
-          localStorage.setItem('searchText', movieName)
-          localStorage.setItem('isShort', isShorts)
-          handleResize()
-          setIsLoading(false)
-          return
-        } else {
           localStorage.setItem('movies', JSON.stringify(searchMovies))
           localStorage.setItem('moviesShorts', JSON.stringify(searchMovies))
           localStorage.setItem('searchText', movieName)
@@ -235,22 +219,20 @@ function App() {
           setIsLoading(false)
           return
         }
-
       })
       .catch((e) => {
         setIsLoading(false)
         console.log(e.message)
-        // localStorage.setItem('movies', JSON.stringify(searchMovies))
-        setErrorMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
       })
-    setIsLoading(false)
     handleResize()
+    setIsLoading(false)
   }
 
   const toggleSearchMovies = (isShorts, movieName) => {
     setErrorMessage('')
     const moviesLocalStorage = JSON.parse(localStorage.getItem('movies'))
-    if (moviesLocalStorage) {
+    const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesShorts'))
+    if (moviesLocalStorage || moviesLocalStorageShorts) {
       if (isShorts) {
         const shortsMovies = moviesLocalStorage.filter((movie) => movie.duration <= 40)
         if (shortsMovies.length === 0) {
@@ -268,96 +250,60 @@ function App() {
         handleResize()
         isAddButtons()
         return
-      } else if (!isShorts) {
-        const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesShorts'))
-        localStorage.setItem('movies', JSON.stringify(moviesLocalStorageShorts))
+      } else {
+        const searchMovies = moviesLocalStorageShorts.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+        localStorage.setItem('movies', JSON.stringify(searchMovies))
         localStorage.setItem('searchText', movieName)
         localStorage.setItem('isShort', isShorts)
         isAddButtons()
       }
       handleResize()
       isAddButtons()
-    } else { setErrorMessage('Ничего не найдено') }
-
+    } else {
+      setErrorMessage('Ничего не найдено')
+    }
   }
 
   const searchMovies = (isShorts, movieName) => {
-    setIsLoading(true)
     setSaveErrorMessage('')
     const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
-    if (searchMovies.length === 0) {
+    if (searchMovies.length === 0 || searchMovies === null) {
       setSaveErrorMessage('Ничего не найдено')
-      setIsLoading(false)
-      localStorage.setItem('searchSaveText', movieName)
-      localStorage.setItem('isShortSave', isShorts)
-      localStorage.setItem('saveMovies', null)
-      localStorage.setItem('moviesSaveShorts', null)
-      handleResizeSaved()
-      return
-    }
-    if (isShorts) {
-      const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
-      if (shortsMovies.length === 0) {
-        setIsLoading(false)
-        setSaveErrorMessage('Ничего не найдено')
-        handleResizeSaved()
-        localStorage.setItem('saveMovies', null)
-        localStorage.setItem('searchSaveText', movieName)
-        localStorage.setItem('isShortSave', isShorts)
-        return
+      setMySavedMovies(null)
+    } else {
+      if (isShorts) {
+        const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
+        if (shortsMovies.length === 0 || shortsMovies === null) {
+          setSaveErrorMessage('Ничего не найдено')
+          setMySavedMovies(null)
+        } else {
+          setMySavedMovies(shortsMovies)
+        }
       } else {
-        localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
-        localStorage.setItem('searchSaveText', movieName)
-        localStorage.setItem('isShortSave', isShorts)
-        setIsLoading(false)
-        handleResizeSaved()
-        return
+        setMySavedMovies(searchMovies)
       }
     }
-    localStorage.setItem('saveMovies', JSON.stringify(searchMovies))
-    localStorage.setItem('moviesSaveShorts', JSON.stringify(searchMovies))
-    localStorage.setItem('searchSaveText', movieName)
-    localStorage.setItem('isShortSave', isShorts)
-    handleResizeSaved()
-    setIsLoading(false)
-    handleResizeSaved()
   }
-
 
   const toggleSaveSearchMovies = (isShorts, movieName) => {
     setSaveErrorMessage('')
-    if (mySavedMovies) {
-      if (isShorts) {
-        const shortsMovies = mySavedMovies.filter((movie) => movie.duration <= 40)
-        if (shortsMovies.length === 0) {
-          setSaveErrorMessage('Ничего не найдено')
-          localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
-          localStorage.setItem('isShortSave', isShorts)
-          localStorage.setItem('searchSaveText', movieName)
-          handleResizeSaved()
-          return
-        }
-        localStorage.setItem('saveMovies', JSON.stringify(shortsMovies))
-        localStorage.setItem('searchSaveText', movieName)
-        localStorage.setItem('isShortSave', isShorts)
-        handleResizeSaved()
-        return
-      } else if (!isShorts) {
-        const moviesLocalStorageShorts = JSON.parse(localStorage.getItem('moviesSaveShorts'))
-        localStorage.setItem('saveMovies', JSON.stringify(myMovies))
-        localStorage.setItem('searchSaveText', movieName)
-        localStorage.setItem('isShortSave', isShorts)
-        handleResizeSaved()
-      }
-      handleResizeSaved()
-    } else {
-      localStorage.setItem('saveMovies', null)
-      localStorage.setItem('isShortSave', isShorts)
-      localStorage.setItem('searchSaveText', movieName)
-      handleResizeSaved()
+    const searchMovies = myMovies.filter((movie) => movie.nameRU.toLowerCase().includes(movieName.toLowerCase()))
+    if (searchMovies.length === 0 || searchMovies === null) {
       setSaveErrorMessage('Ничего не найдено')
+      setMySavedMovies(null)
+    } else {
+      if (isShorts) {
+        const shortsMovies = searchMovies.filter((movie) => movie.duration <= 40)
+        if (shortsMovies.length === 0 || shortsMovies === null) {
+          setSaveErrorMessage('Ничего не найдено')
+          setMySavedMovies(null)
+        } else {
+          setMySavedMovies(shortsMovies)
+        }
+      } else {
+        setMySavedMovies(searchMovies)
+      }
     }
-    handleResizeSaved()
   }
 
   useEffect(() => {
@@ -395,12 +341,12 @@ function App() {
       .then((data) => {
         setMySavedMovies(myMovies.filter(item => item._id !== id))
         getMyMovies()
-        localStorage.setItem('saveMovies', JSON.stringify(mySavedMovies))
+        // localStorage.setItem('saveMovies', JSON.stringify(mySavedMovies))
       })
       .catch((e) => {
         console.log(e.message)
       })
-    handleResizeSaved()
+    // handleResizeSaved()
   }
 
   const handleLogin = () => {

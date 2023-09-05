@@ -25,15 +25,9 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
             setCheckbox(!checkbox)
             toggleSearchMovies(checkbox, movie)
         } else if (location.pathname === '/saved-movies') {
-            const checks = JSON.parse(localStorage.getItem('isShortSave'))
-            if (checks !== undefined) {
-                setCheckboxSave(!checks)
-                localStorage.setItem('isShortSave', checks)
-                toggleSaveSearchMovies(!checks, movie)
-                return
-            }
             setCheckboxSave(!checkboxSave)
-            toggleSaveSearchMovies(checkboxSave, saveMovie)
+            toggleSaveSearchMovies(!checkboxSave, saveMovie)
+            console.log(!checkboxSave)
         }
     }
 
