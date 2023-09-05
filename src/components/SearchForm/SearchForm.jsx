@@ -9,7 +9,6 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
     const [checkbox, setCheckbox] = useState(false)
     const [checkboxSave, setCheckboxSave] = useState(false)
     const [search, setSearch] = useState('Фильм')
-    const [isDisabled, setDisabled] = useState(false)
 
     const location = useLocation()
 
@@ -33,9 +32,9 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
     const handleSubmit = (e) => {
         e.preventDefault()
         if (location.pathname === '/movies') {
-            if (movie === '') {
+            if (!movie) {
                 setSearch('Нужно ввести ключевое слово')
-            } else {
+            } else if (movie !== ''){
                 handleSearchMovies(checkbox, movie)
             }
         } else if (location.pathname === '/saved-movies') {
@@ -46,24 +45,6 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
             }
         }
     }
-
-    useEffect(()=>{
-        if (location.pathname === '/movies') {
-            if (movie === '') {
-                setSearch('Фильм')
-                setDisabled(false)
-            } else {
-               setDisabled(true)
-            }
-        } else if (location.pathname === '/saved-movies') {
-            if (saveMovie === '') {
-                setSearch('Фильм')
-                setDisabled(false)
-            } else {
-                setDisabled(true)
-            }
-        }
-    },[])
 
     useEffect(() => {
         if (location.pathname === '/movies') {
@@ -80,9 +61,9 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         placeholder={search}
                         className='searchForm__input'
                         value={(location.pathname === '/movies') ? movie : saveMovie}
-                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value); setDisabled(true)} : e => {setSaveMovie(e.target.value); setDisabled(true)}}
+                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value)} : e => {setSaveMovie(e.target.value)}}
                     />
-                    <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
+                    <button className='searchForm__button' type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>
                 <FilterCheckbox checkbox={checkbox} checkboxSave={checkboxSave} handleChecked={handleChecked} />
