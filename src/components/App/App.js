@@ -336,13 +336,15 @@ function App() {
   const handleDeleteMovies = (id) => {
     mainApi.setDeleteMovies(id)
       .then((data) => {
-        setMySavedMovies(myMovies.filter(item => item._id !== id))
-        getMyMovies()
-        // localStorage.setItem('saveMovies', JSON.stringify(mySavedMovies))
+         const deleteMoves = mySavedMovies.filter(item => item._id !== id)
+         const deleteMoves1 = myMovies.filter(item => item._id !== id)
+         setMySavedMovies(deleteMoves)
+         setMyMovies(deleteMoves1)
       })
       .catch((e) => {
         console.log(e.message)
       })
+
   }
 
   const handleLogin = () => {
