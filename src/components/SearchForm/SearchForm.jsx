@@ -48,23 +48,23 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
         }
     }
 
-    useEffect(()=>{
-        if (location.pathname === '/movies') {
-            if (movie === '') {
-                setSearch('Фильм')
-                setDisabled(false)
-            } else {
-               setDisabled(true)
-            }
-        } else if (location.pathname === '/saved-movies') {
-            if (saveMovie === '') {
-                setSearch('Фильм')
-                setDisabled(false)
-            } else {
-                setDisabled(true)
-            }
-        }
-    },[])
+    // useEffect(()=>{
+    //     if (location.pathname === '/movies') {
+    //         if (movie === '') {
+    //             setSearch('Фильм')
+    //             setDisabled(false)
+    //         } else {
+    //            setDisabled(true)
+    //         }
+    //     } else if (location.pathname === '/saved-movies') {
+    //         if (saveMovie === '') {
+    //             setSearch('Фильм')
+    //             setDisabled(false)
+    //         } else {
+    //             setDisabled(true)
+    //         }
+    //     }
+    // },[])
 
     useEffect(() => {
         if (location.pathname === '/movies') {
