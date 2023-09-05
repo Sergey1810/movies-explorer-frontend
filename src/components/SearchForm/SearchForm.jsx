@@ -84,7 +84,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         placeholder={search}
                         className='searchForm__input'
                         value={(location.pathname === '/movies') ? movie : saveMovie}
-                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value); setDisabled(true)} : e => {setSaveMovie(e.target.value); setDisabled(true)}}
+                        onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value)} : e => {setSaveMovie(e.target.value)}}
                     />
                     <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
