@@ -86,7 +86,7 @@ export default function SearchForm({ handleSearchMovies, searchMovies, toggleSea
                         value={(location.pathname === '/movies') ? movie : saveMovie}
                         onChange={(location.pathname === '/movies') ? e => {setMovie(e.target.value)} : e => {setSaveMovie(e.target.value)}}
                     />
-                    <button className='searchForm__button' disabled={!isDisabled} type='submit'>Найти</button>
+                    <button className='searchForm__button' type='submit'>Найти</button>
                     <div className='searchForm__input-active'></div>
                 </div>
                 <FilterCheckbox checkbox={checkbox} checkboxSave={checkboxSave} handleChecked={handleChecked} />
