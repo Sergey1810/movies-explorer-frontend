@@ -1,0 +1,118 @@
+.footer {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.footer__info {
+    border-bottom: 1px solid #E8E8E8;
+    width: calc(100%-140px);
+    text-align: center;
+    margin: 0 70px;
+}
+
+.footer__info-content {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    margin-top: 79px;
+    color: #A0A0A0;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 70px;
+}
+
+.footer__copyright {
+    color: #000;
+    margin: 0;
+    padding: 0;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer__nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.footer__nav-link {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    text-align: right;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    transition: opacity 0.3s linear;
+}
+
+.footer__nav-link:hover{
+    opacity: 0.6;
+}
+
+.footer__link{
+    text-decoration: none;
+    color: #000;
+}
+
+@media screen and (max-width:768px){
+    .footer__info {
+        margin: 0 30px;
+    }
+    .footer__content{
+        margin: 20px 30px;
+    }
+  }  
+
+  @media screen and (max-width:320px){
+    .footer {
+        max-width: 320px;
+    }
+    .footer__info {
+        margin: 0 10px;
+        max-width: 300px;
+    }
+    .footer__info-content{
+        font-size: 12px;
+    }
+    .footer__copyright {
+        color: #A0A0A0;
+        font-size: 12px;
+        margin-top: 30px;
+    }
+    .footer__content {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+    }
+    .footer__nav{
+        text-align: center;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .footer__nav-link{
+        font-size: 12px;
+        text-align: center;
+    }
+  }  

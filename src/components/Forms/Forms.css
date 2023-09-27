@@ -1,0 +1,116 @@
+.forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 396px;
+    width: 100%;
+}
+
+.forms__container {
+    width: 100%;
+    height: 266px;
+    display: flex;
+    flex-direction: column;
+}
+
+.forms__input {
+    all: unset;
+    outline: none;
+    margin-top: 5px;
+    border: none;
+    border-bottom: 1px solid #E8E8E8;
+    color: #000;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-bottom: 10px;
+    transition: border-bottom 0.3s linear;
+    cursor: pointer;
+}
+
+.forms__input:hover {
+    border-bottom: 1px solid rgba(232, 232, 232, 0.6);
+}
+
+.forms__input:focus {
+    border-bottom: 1px solid #3456F3;
+}
+
+.forms__label {
+    margin: 0;
+    padding: 0;
+    margin-top: 24px;
+    color: #A0A0A0;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.forms__button {
+    all: unset;
+    border-radius: 3px;
+    background: #3456F3;
+    width: 396px;
+    height: 45px;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 93px;
+    transition: opacity 0.3s linear;
+    cursor: pointer;
+}
+
+.forms__button:hover {
+    opacity: 0.6;
+}
+
+.forms__button:disabled{
+    opacity: 0.4;
+}
+
+.forms__error {
+    color: #FF3055;
+    font-family: Inter, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@media screen and (max-width:768px) {
+    .forms__button {
+        margin-top: 93px;
+        margin-bottom: 4px;
+    }
+}
+
+@media screen and (max-width:430px) {
+    .forms__container {
+        width: calc(100% - 60px);
+        height: 180px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .forms__button {
+        width: 260px;
+        font-size: 12px;
+        margin: 0 auto;
+        margin-top: 267px;
+        margin-bottom: 2px;
+    }
+    .forms__error{
+        margin: 0;
+        padding: 0;
+        margin-top: 6px;
+    }
+}
